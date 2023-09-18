@@ -68,3 +68,4 @@ D:\TowerDefenseSDL\obj\Debug\MyGame.exe
 D:\TowerDefenseSDL\obj\Debug\MyGame.pdb
 D:\TowerDefenseSDL\bin\Debug\assets\map.png
 D:\TowerDefenseSDL\bin\Debug\assets\tower.png
+D:\TowerDefenseSDL\bin\Debug\assets\bullet_01.png

@@ -47,8 +47,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Bullet.cs">
+      <DependentUpon>GameObject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\GameObject.cs" />
-    <Compile Include="Classes\Tower.cs" />
+    <Compile Include="Classes\Tower.cs">
+      <DependentUpon>GameObject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Font.cs" />
     <Compile Include="Core\Sound.cs" />
@@ -58,9 +63,10 @@
     <Compile Include="Structs\Vector2.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\bullet_1.png">
+    <Content Include="assets\bullet_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\enemy.png" />
     <Content Include="assets\map.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
