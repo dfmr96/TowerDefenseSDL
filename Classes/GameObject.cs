@@ -18,16 +18,13 @@ namespace MyGame
 
         
 
-        public GameObject(Vector2 initPosition, string spriteDir)
+        public GameObject(Vector2 initPosition, string spriteDir, Vector2 spriteSize)
         {
             position = initPosition;
             sprite.root = Engine.LoadImage(spriteDir);
-            sprite.size = new Vector2(32, 64);
-        }
-
-        public GameObject()
-        {
-            ///
+            sprite.size = spriteSize;
+            
+            Program.gameObjects.Add(this);
         }
 
         public virtual void Update()

@@ -42,7 +42,6 @@ namespace MyGame
             _startTime = DateTime.Now;
 
             Tower tower1 = new Tower(new Vector2(32, 64), "assets/tower.png");
-            gameObjects.Add(tower1);
         }
 
         private static void Update()
@@ -51,7 +50,7 @@ namespace MyGame
             {
                 gameObject.Update();
             }
-            //Engine.Debug($"{gameObjects.Count}");
+            Engine.Debug($"{gameObjects.Count}");
         }
 
         private static void Render()

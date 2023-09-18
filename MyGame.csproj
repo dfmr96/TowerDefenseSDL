@@ -50,6 +50,9 @@
     <Compile Include="Classes\Bullet.cs">
       <DependentUpon>GameObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Enemy.cs">
+      <DependentUpon>GameObject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\GameObject.cs" />
     <Compile Include="Classes\Tower.cs">
       <DependentUpon>GameObject.cs</DependentUpon>
