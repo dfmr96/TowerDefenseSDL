@@ -55,3 +55,16 @@ C:\Users\Consultoria\Dropbox\Facultad\UADE OBJETOS\BASE\Base\bin\Debug\assets\Sh
 C:\Users\Consultoria\Dropbox\Facultad\UADE OBJETOS\BASE\Base\bin\Debug\assets\Ship\Idle\1.png
 C:\Users\Consultoria\Dropbox\Facultad\UADE OBJETOS\BASE\Base\bin\Debug\assets\Ship\Idle\2.png
 C:\Users\Consultoria\Dropbox\Facultad\UADE OBJETOS\BASE\Base\bin\Debug\assets\Ship\Idle\3.png
+D:\TowerDefenseSDL\bin\Debug\assets\player.png
+D:\TowerDefenseSDL\bin\Debug\assets\fondo.png
+D:\TowerDefenseSDL\bin\Debug\MyGame.exe.config
+D:\TowerDefenseSDL\bin\Debug\MyGame.exe
+D:\TowerDefenseSDL\bin\Debug\MyGame.pdb
+D:\TowerDefenseSDL\obj\Debug\MyGame.csproj.AssemblyReference.cache
+D:\TowerDefenseSDL\obj\Debug\MyGame.csproj.SuggestedBindingRedirects.cache
+D:\TowerDefenseSDL\obj\Debug\MyGame.csproj.CoreCompileInputs.cache
+D:\TowerDefenseSDL\obj\Debug\MyGame.csproj.CopyComplete
+D:\TowerDefenseSDL\obj\Debug\MyGame.exe
+D:\TowerDefenseSDL\obj\Debug\MyGame.pdb
+D:\TowerDefenseSDL\bin\Debug\assets\map.png
+D:\TowerDefenseSDL\bin\Debug\assets\tower.png

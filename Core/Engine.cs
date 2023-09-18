@@ -11,10 +11,10 @@ class Engine
 
     public static void Initialize()
     {
-        ancho = 1024;
+        ancho = 1280;
         alto = 768;
         int colores = 24;
-
+        
         int flags = (Sdl.SDL_HWSURFACE | Sdl.SDL_DOUBLEBUF | Sdl.SDL_ANYFORMAT);
         Sdl.SDL_Init(Sdl.SDL_INIT_EVERYTHING);
         screen = Sdl.SDL_SetVideoMode(
