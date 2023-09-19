@@ -14,6 +14,7 @@ namespace MyGame
         private List<Enemy> enemiesInRange = new List<Enemy>();
         private Enemy target;
         public Enemy Target => target;
+        public List<Enemy> EnemiesInRange => enemiesInRange;
 
         public Vector2 Tile
         {
@@ -97,6 +98,11 @@ namespace MyGame
         public void UnTarget()
         {
             target = null;
+        }
+
+        public void RemoveEnemy(Enemy enemy)
+        {
+            if (enemiesInRange.Contains(enemy)) enemiesInRange.Remove(enemy);
         }
     }
 }

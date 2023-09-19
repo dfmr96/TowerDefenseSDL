@@ -56,6 +56,7 @@ namespace MyGame
             for (int i = 0; i < Program.towers.Count; i++)
             {
                 if (Program.towers[i].Target == this) Program.towers[i].UnTarget();
+                Program.towers[i].RemoveEnemy(this);
             }
 
             Program.enemies.Remove(this);
