@@ -32,8 +32,9 @@ namespace MyGame
                 Enemy enemy = Program.enemies[i];
                 if (Vector2.Distance(position, enemy.Position) <= colliderRadius + enemy.ColliderRadius)
                 {
-                    Program.gameObjects.Remove(this);
                     enemy.TakeDamage();
+                    Engine.Debug("Bala borrada");
+                    Program.gameObjects.Remove(this);
                 }
             }
         }
