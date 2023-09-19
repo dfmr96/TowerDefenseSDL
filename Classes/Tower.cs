@@ -38,8 +38,8 @@ namespace MyGame
 
         private void CreateBullet()
         {
-            Bullet newBullet = new Bullet(new Vector2(128, 128), "assets/bullet_01.png");
-            Engine.Debug($"Bala creada {newBullet.position.x} {newBullet.position.y}");
+            Bullet newBullet = new Bullet(new Vector2(10 * Program.TILE_SIZE, 18.5f * Program.TILE_SIZE), "assets/bullet_01.png");
+            Engine.Debug($"Bala creada {newBullet.Position.x} {newBullet.Position.y}");
             //Engine.Debug($"{Program.gameObjects.Count}");
         }
     }

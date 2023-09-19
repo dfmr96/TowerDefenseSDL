@@ -6,7 +6,7 @@ namespace MyGame
 {
     public abstract class GameObject
     {
-        public Vector2 position;
+        protected Vector2 position;
 
         public Sprite sprite;
 
@@ -25,6 +25,8 @@ namespace MyGame
             sprite.size = spriteSize;
             
             Program.gameObjects.Add(this);
+            
+            Engine.Debug("GO creado");
         }
 
         public virtual void Update()

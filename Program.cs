@@ -17,7 +17,9 @@ namespace MyGame
         public const int ROWS = 40;
         public const int COLUMNS = 19;
         public const int TILE_SIZE = 32;
-        public static ConcurrentBag<GameObject> gameObjects = new ConcurrentBag<GameObject>();
+        public static List<GameObject> gameObjects = new List<GameObject>();
+        public static List<Enemy> enemies = new List<Enemy>();
+        public static EnemyFactory enemyFactory = new EnemyFactory();
 
         static void Main(string[] args)
         {
@@ -46,11 +48,22 @@ namespace MyGame
 
         private static void Update()
         {
-            foreach (GameObject gameObject in gameObjects)
+            enemyFactory.Update();
+
+            if (Engine.KeyPress(Engine.KEY_RIGHT))
+            {
+                Engine.Debug($"{gameObjects.Count}");
+            }
+            /*foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Update();
+            }*/
+
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                gameObjects[i].Update();
             }
-            Engine.Debug($"{gameObjects.Count}");
+
         }
 
         private static void Render()
@@ -59,9 +72,14 @@ namespace MyGame
             Engine.Clear();
             Engine.Draw(background, 0, 0);
 
-            foreach (GameObject gameObject in gameObjects)
+            /*foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Render();
+            }*/
+            
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                gameObjects[i].Render();
             }
 
             Engine.Show();
