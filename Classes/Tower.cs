@@ -47,7 +47,7 @@ namespace MyGame
             {
                 target = Program.enemies[0];
                 CreateBullet();
-            } 
+            }
             */
             if (Engine.KeyPress(Engine.KEY_1))
             {
@@ -63,7 +63,6 @@ namespace MyGame
 
         private void CreateBullet()
         {
-            
             Vector2 direction = Vector2.Normalize(target.SpriteCenter - bulletSpawnPos);
             Bullet newBullet = new Bullet(bulletSpawnPos, "assets/bullet_01.png", direction);
             Engine.Debug($"Bala creada {newBullet.Position.x} {newBullet.Position.y}");
@@ -72,12 +71,11 @@ namespace MyGame
 
         private void CheckEnemiesAround()
         {
-            
             //if (Program.enemies.Count == 0) return;
             for (int i = 0; i < Program.enemies.Count; i++)
             {
-                if (Vector2.Distance(Program.enemies[i].SpriteCenter, bulletSpawnPos) < rangeRadius 
-                    && !enemiesInRange.Contains(Program.enemies[i])) 
+                if (Vector2.Distance(Program.enemies[i].SpriteCenter, bulletSpawnPos) < rangeRadius
+                    && !enemiesInRange.Contains(Program.enemies[i]))
                 {
                     enemiesInRange.Add(Program.enemies[i]);
                     Engine.Debug($"Enemigo dentro de rango, total: {enemiesInRange}");

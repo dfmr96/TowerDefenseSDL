@@ -14,7 +14,8 @@ namespace MyGame
 
             if (Engine.KeyPress(Engine.KEY_0) && spawnRateCounter >= 1 / spawnRate)
             {
-                Enemy newEnemy = new Enemy(new Vector2(-Program.TILE_SIZE, 18.5f * Program.TILE_SIZE), "assets/enemy.png", 20, new Vector2(1, 0));
+                Enemy newEnemy = new Enemy(new Vector2(-Program.TILE_SIZE, 18.5f * Program.TILE_SIZE),
+                    "assets/enemy.png", 20, new Vector2(1, 0));
                 spawnRateCounter = 0;
                 Engine.Debug($"{Program.enemies.Count()}");
             }

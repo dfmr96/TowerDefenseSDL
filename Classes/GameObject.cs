@@ -23,9 +23,9 @@ namespace MyGame
             position = initPosition;
             sprite.root = Engine.LoadImage(spriteDir);
             sprite.size = spriteSize;
-            
+
             Program.gameObjects.Add(this);
-            
+
             Engine.Debug("GO creado");
         }
 

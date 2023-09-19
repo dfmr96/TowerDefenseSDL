@@ -50,7 +50,7 @@ namespace MyGame
         private static void Update()
         {
             GetMouse();
-            
+
             if (Engine.KeyPress(Engine.KEY_RIGHT))
             {
                 Engine.Debug($"{gameObjects.Count}");
@@ -101,7 +101,7 @@ namespace MyGame
                 if (Sdl.SDL_BUTTON_LEFT == m_event.button.button)
                 {
                     Engine.Debug("Left mouse button is down");
-                    Tower newTower = new Tower(new Vector2(m_event.button.x,m_event.button.y), "assets/tower.png");
+                    Tower newTower = new Tower(new Vector2(m_event.button.x, m_event.button.y), "assets/tower.png");
                 }
                 else if (Sdl.SDL_BUTTON_RIGHT == m_event.button.button)
                 {

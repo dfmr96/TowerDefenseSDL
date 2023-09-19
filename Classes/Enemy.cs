@@ -13,16 +13,11 @@ namespace MyGame
         public int Health
         {
             get => health;
-            private set
-            {
-                health = value;
+            private set { health = value; }
+        }
 
-                
-            }
-    }
-        
-        public Enemy(Vector2 initPosition, string spriteDir, float speed, Vector2 direction) 
-            : base(initPosition,spriteDir, new Vector2(16,16))
+        public Enemy(Vector2 initPosition, string spriteDir, float speed, Vector2 direction)
+            : base(initPosition, spriteDir, new Vector2(16, 16))
         {
             this.speed = speed;
             this.direction = direction;
@@ -33,7 +28,7 @@ namespace MyGame
         {
             position += direction * Program.DeltaTime * speed;
         }
-        
+
         public override void Render()
         {
             Engine.Draw(sprite.root, position.x - sprite.size.x / 2, position.y - sprite.size.y / 2);
@@ -47,12 +42,12 @@ namespace MyGame
                 health = 0;
                 DestroyEnemy();
             }
+
             Engine.Debug("Enemigo herido");
         }
 
         private void DestroyEnemy()
         {
-            
             for (int i = 0; i < Program.towers.Count; i++)
             {
                 if (Program.towers[i].Target == this) Program.towers[i].UnTarget();
