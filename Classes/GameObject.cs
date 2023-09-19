@@ -16,7 +16,7 @@ namespace MyGame
             protected set => position = value;
         }
 
-        
+        public Vector2 SpriteCenter => new Vector2(position.x + sprite.size.x / 2, position.y - sprite.size.y / 2);
 
         public GameObject(Vector2 initPosition, string spriteDir, Vector2 spriteSize)
         {

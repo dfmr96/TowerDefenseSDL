@@ -19,6 +19,7 @@ namespace MyGame
         public const int TILE_SIZE = 32;
         public static List<GameObject> gameObjects = new List<GameObject>();
         public static List<Enemy> enemies = new List<Enemy>();
+        public static List<Tower> towers = new List<Tower>();
         public static EnemyFactory enemyFactory = new EnemyFactory();
 
         static void Main(string[] args)
@@ -43,7 +44,7 @@ namespace MyGame
         {
             _startTime = DateTime.Now;
 
-            Tower tower1 = new Tower(new Vector2(1f * TILE_SIZE, 18f * TILE_SIZE), "assets/tower.png");
+            //Tower tower1 = new Tower(new Vector2(1f * TILE_SIZE, 18f * TILE_SIZE), "assets/tower.png");
         }
 
         private static void Update()
@@ -92,7 +93,7 @@ namespace MyGame
             if (Sdl.SDL_MOUSEMOTION == m_event.type)
             {
                 Sdl.SDL_GetMouseState(out x, out y);
-                Engine.Debug($"{x},{y}");
+                //Engine.Debug($"{x},{y}");
             }
 
             if (Sdl.SDL_MOUSEBUTTONDOWN == m_event.type)

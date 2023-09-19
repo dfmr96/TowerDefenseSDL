@@ -17,13 +17,7 @@ namespace MyGame
             {
                 health = value;
 
-                if (health <= 0)
-                {
-                    health = 0;
-                    Program.enemies.Remove(this);
-                    Program.gameObjects.Remove(this);
-                    Engine.Debug("Enemigo muerto");
-                }
+                
             }
     }
         
@@ -48,7 +42,25 @@ namespace MyGame
         public void TakeDamage()
         {
             Health--;
+            if (health <= 0)
+            {
+                health = 0;
+                DestroyEnemy();
+            }
             Engine.Debug("Enemigo herido");
+        }
+
+        private void DestroyEnemy()
+        {
+            
+            for (int i = 0; i < Program.towers.Count; i++)
+            {
+                if (Program.towers[i].Target == this) Program.towers[i].UnTarget();
+            }
+
+            Program.enemies.Remove(this);
+            Program.gameObjects.Remove(this);
+            Engine.Debug("Enemigo muerto");
         }
     }
 }

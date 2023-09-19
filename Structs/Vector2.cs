@@ -38,6 +38,11 @@
         {
             return new Vector2(a.x + b.x, a.y + b.y);
         }
+        
+        public static Vector2 operator - (Vector2 a, Vector2 b)
+        {
+            return new Vector2(a.x - b.x, a.y - b.y);
+        }
 
         public static Vector2 Zero => new Vector2(0, 0);
 
@@ -48,6 +53,18 @@
 
             float length = (float)Math.Sqrt(newX * newX + newY * newY);
             return length;
+        }
+
+        public static float Magnitude(Vector2 a)
+        {
+            return (float)Math.Sqrt(a.x * a.x + a.y * a.y);
+        } 
+
+        public static Vector2 Normalize(Vector2 a)
+        {
+            float magnitude = Vector2.Magnitude(a);
+            Vector2 newVector = new Vector2(a.x / magnitude, a.y / magnitude);
+            return newVector;
         }
     }
 }

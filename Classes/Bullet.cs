@@ -5,12 +5,13 @@ namespace MyGame
     public class Bullet : GameObject
     {
         private Vector2 direction = new Vector2(-1, 0);
-        private float speed = 25;
+        private float speed = 100;
         private float colliderRadius = 3;
 
-        public Bullet(Vector2 initPos, string spriteDir)
+        public Bullet(Vector2 initPos, string spriteDir, Vector2 direction)
             : base(initPos, spriteDir, new Vector2(6, 6))
         {
+            this.direction = direction;
             /*position = initPos;
             sprite.root = Engine.LoadImage(spriteDir);*/
             //sprite.size = new Vector2(6, 6);
@@ -21,8 +22,6 @@ namespace MyGame
             position += direction * Program.DeltaTime * speed;
 
             CheckCollision();
-            
-            
         }
 
         public void CheckCollision()
@@ -39,12 +38,17 @@ namespace MyGame
             }
         }
 
+        /*public void SetDirection(Vector2 dir)
+        {
+            direction = dir;
+        }*/
+
         ~Bullet()
         {
             Engine.Debug("Bala destruida");
         }
 
-    public override void Render()
+        public override void Render()
         {
             Engine.Draw(sprite.root, position.x - sprite.size.x / 2, position.y - sprite.size.y / 2);
         }
