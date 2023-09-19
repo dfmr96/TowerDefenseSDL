@@ -41,14 +41,13 @@
 
         public static Vector2 Zero => new Vector2(0, 0);
 
-        public static Vector2 Distance (Vector2 a, Vector2 b)
+        public static float Distance(Vector2 a, Vector2 b)
         {
-            var newX = a.x - b.x;
-            var newY = a.y - b.y;
+            float newX = b.x - a.x;
+            float newY = b.y - a.y;
 
-            newX = Math.Abs(newX);
-            newY = Math.Abs(newY);
-            return new Vector2(newX, newY);
+            float length = (float)Math.Sqrt(newX * newX + newY * newY);
+            return length;
         }
     }
 }

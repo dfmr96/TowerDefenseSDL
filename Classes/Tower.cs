@@ -33,7 +33,7 @@ namespace MyGame
 
         public override void Render()
         {
-            Engine.Draw(sprite.root, position.x - Program.TILE_SIZE / 2, position.y - (Program.TILE_SIZE * 4 / 3));
+            Engine.Draw(sprite.root, (float)Math.Floor(Position.x / Program.TILE_SIZE) * Program.TILE_SIZE, (float)Math.Floor(Position.y / Program.TILE_SIZE) * Program.TILE_SIZE - (sprite.size.y / 2));
         }
 
         private void CreateBullet()

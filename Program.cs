@@ -43,27 +43,23 @@ namespace MyGame
         {
             _startTime = DateTime.Now;
 
-            Tower tower1 = new Tower(new Vector2(32, 64), "assets/tower.png");
+            Tower tower1 = new Tower(new Vector2(1f * TILE_SIZE, 18f * TILE_SIZE), "assets/tower.png");
         }
 
         private static void Update()
         {
-            enemyFactory.Update();
-
+            GetMouse();
+            
             if (Engine.KeyPress(Engine.KEY_RIGHT))
             {
                 Engine.Debug($"{gameObjects.Count}");
             }
-            /*foreach (GameObject gameObject in gameObjects)
-            {
-                gameObject.Update();
-            }*/
 
+            enemyFactory.Update();
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update();
             }
-
         }
 
         private static void Render()
@@ -76,7 +72,7 @@ namespace MyGame
             {
                 gameObject.Render();
             }*/
-            
+
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Render();
@@ -84,6 +80,37 @@ namespace MyGame
 
             Engine.Show();
         }
-        
+
+        private static void GetMouse()
+        {
+            bool press = false;
+            Sdl.SDL_PumpEvents();
+            Sdl.SDL_Event m_event;
+            Sdl.SDL_PollEvent(out m_event);
+            int x, y;
+
+            if (Sdl.SDL_MOUSEMOTION == m_event.type)
+            {
+                Sdl.SDL_GetMouseState(out x, out y);
+                Engine.Debug($"{x},{y}");
+            }
+
+            if (Sdl.SDL_MOUSEBUTTONDOWN == m_event.type)
+            {
+                if (Sdl.SDL_BUTTON_LEFT == m_event.button.button)
+                {
+                    Engine.Debug("Left mouse button is down");
+                    Tower newTower = new Tower(new Vector2(m_event.button.x,m_event.button.y), "assets/tower.png");
+                }
+                else if (Sdl.SDL_BUTTON_RIGHT == m_event.button.button)
+                {
+                    Engine.Debug("'Right mouse button is down");
+                }
+                else if (Sdl.SDL_BUTTON_MIDDLE == m_event.button.button)
+                {
+                    Engine.Debug("Middle mouse button is down");
+                }
+            }
+        }
     }
 }

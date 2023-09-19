@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Drawing;
+using MyGame;
 using Tao.Sdl;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -158,7 +159,66 @@ class Engine
         return press;
     }
 
+    public static void MousePress()
+    {
+        bool press = false;
+        Sdl.SDL_PumpEvents();
+        Sdl.SDL_Event m_event;
+        Sdl.SDL_PollEvent(out m_event);
 
+        
+        if (Sdl.SDL_MOUSEMOTION == m_event.type)
+        {
+            int x, y;
+            Sdl.SDL_GetMouseState(out x, out y);
+            Debug($"{x},{y}");
+        }
+        
+        if ( Sdl.SDL_MOUSEBUTTONDOWN == m_event.type )
+        {
+            if (Sdl.SDL_BUTTON_LEFT == m_event.button.button)
+            {
+                Debug("Left mouse button is down");
+            }
+            else if ( Sdl.SDL_BUTTON_RIGHT == m_event.button.button )
+            {
+                Debug("'Right mouse button is down");
+            }
+            else if ( Sdl.SDL_BUTTON_MIDDLE == m_event.button.button )
+            {
+                Debug("Middle mouse button is down");
+            }
+        }
+        
+
+
+
+        /*bool press = false;
+        Sdl.SDL_PumpEvents();
+        Sdl.SDL_Event pressed;
+
+        Sdl.SDL_PollEvent(out pressed);
+
+
+        if (Sdl.SDL_MOUSEBUTTONDOWN == pressed.type)
+        {
+            if (Sdl.SDL_BUTTON_LEFT == pressed.button.button)
+            {
+                Debug("Click izquierdo clickeado");
+            }
+        }
+        */
+
+
+        /*if (Sdl.SDL_MOUSEMOTION == pressed.type)
+        {
+            int x, y;
+            Sdl.SDL_GetMouseState(out x, out y);
+            Debug($"{x},{y}");
+            //return new Vector2(x, y);
+        }*/
+        //return Vector2.Zero;
+    }
 
     public static void ErrorFatal(string texto)
     {
@@ -210,4 +270,6 @@ class Engine
     public static int KEY_DOWN = Sdl.SDLK_DOWN;
     public static int KEY_RIGHT = Sdl.SDLK_RIGHT;
     public static int KEY_LEFT = Sdl.SDLK_LEFT;
+    
+    //public static int MOUSE_0 = Sdl.SDL_BUTTON_LEFT;
 }

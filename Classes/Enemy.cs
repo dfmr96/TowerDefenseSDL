@@ -7,6 +7,8 @@ namespace MyGame
         private int health = 3;
         private Vector2 direction;
         private float speed = 0;
+        private float colliderRadius = 8;
+        public float ColliderRadius => colliderRadius;
 
         public int Health
         {

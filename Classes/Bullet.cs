@@ -6,6 +6,7 @@ namespace MyGame
     {
         private Vector2 direction = new Vector2(-1, 0);
         private float speed = 25;
+        private float colliderRadius = 3;
 
         public Bullet(Vector2 initPos, string spriteDir)
             : base(initPos, spriteDir, new Vector2(6, 6))
@@ -28,10 +29,11 @@ namespace MyGame
         {
             for (int i = 0; i < Program.enemies.Count; i++)
             {
-                if (position.x < Program.enemies[i].Position.x)
+                Enemy enemy = Program.enemies[i];
+                if (Vector2.Distance(position, enemy.Position) <= colliderRadius + enemy.ColliderRadius)
                 {
                     Program.gameObjects.Remove(this);
-                    Program.enemies[i].TakeDamage();
+                    enemy.TakeDamage();
                 }
             }
         }
