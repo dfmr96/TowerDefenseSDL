@@ -15,7 +15,14 @@ namespace MyGame
             if (Engine.KeyPress(Engine.KEY_0) && spawnRateCounter >= 1 / spawnRate)
             {
                 Enemy newEnemy = new Enemy(new Vector2(-Program.TILE_SIZE, 18.5f * Program.TILE_SIZE),
-                    "assets/enemy.png", 20, new Vector2(1, 0));
+                    "assets/enemy01.png", 40, new Vector2(1, 0), 5);
+                spawnRateCounter = 0;
+                Engine.Debug($"{Program.enemies.Count()}");
+            }
+            if (Engine.KeyPress(Engine.KEY_9) && spawnRateCounter >= 1 / spawnRate)
+            {
+                Enemy newEnemy = new Enemy(new Vector2(-Program.TILE_SIZE, 18.5f * Program.TILE_SIZE),
+                    "assets/enemy02.png", 30, new Vector2(1, 0), 12);
                 spawnRateCounter = 0;
                 Engine.Debug($"{Program.enemies.Count()}");
             }

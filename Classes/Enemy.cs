@@ -16,11 +16,12 @@ namespace MyGame
             private set { health = value; }
         }
 
-        public Enemy(Vector2 initPosition, string spriteDir, float speed, Vector2 direction)
+        public Enemy(Vector2 initPosition, string spriteDir, float speed, Vector2 direction, int health)
             : base(initPosition, spriteDir, new Vector2(16, 16))
         {
             this.speed = speed;
             this.direction = direction;
+            this.health = health;
             Program.enemies.Add(this);
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyGame.Classes;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -7,10 +8,13 @@ namespace MyGame
 {
     public class Tower : GameObject
     {
+        private Animation idleAnimation;
+        private Animation upgradeAnimation;
+        private Animation currentAnimation;
         private float fireRate = 1;
         private float fireRateCounter = 0;
         private Vector2 bulletSpawnPos;
-        private float rangeRadius = 80;
+        private float rangeRadius = 120;
         private List<Enemy> enemiesInRange = new List<Enemy>();
         private Enemy target;
         public Enemy Target => target;
@@ -29,11 +33,33 @@ namespace MyGame
             bulletSpawnPos = new Vector2(Tile.x + sprite.size.x * 0.5f, Tile.y - sprite.size.y * 0.5f);
             /*position = initPos;
             sprite.root = Engine.LoadImage(spriteDir);*/
-//            sprite.size = new Vector2(32, 64);
+            //            sprite.size = new Vector2(32, 64);
+            CreateAnimations();
+            currentAnimation = idleAnimation;
+        }
+
+        private void CreateAnimations()
+        {
+            List<IntPtr> frames = new List<IntPtr>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                IntPtr frame = Engine.LoadImage($"assets/towerAnimations/idle/{i}.png");
+                frames.Add(frame);
+            }
+            idleAnimation = new Animation("idle", frames, 0.2f, true);
+
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    IntPtr frame = Engine.LoadImage($"assets/towerAnimations/upgrade/{i}.png");
+            //    frames.Add(frame);
+            //}
+            //upgradeAnimation = new Animation("upgrade", frames, 0.5f, true);
         }
 
         public override void Update()
         {
+            currentAnimation.Update();
             CheckEnemiesAround();
 
             fireRateCounter += Program.DeltaTime;
@@ -58,6 +84,8 @@ namespace MyGame
         public override void Render()
         {
             Engine.Draw(sprite.root, (float)Math.Floor(Position.x / Program.TILE_SIZE) * Program.TILE_SIZE,
+                (float)Math.Floor(Position.y / Program.TILE_SIZE) * Program.TILE_SIZE - (sprite.size.y / 2));
+            Engine.Draw(currentAnimation.Frames, (float)Math.Floor(Position.x / Program.TILE_SIZE) * Program.TILE_SIZE,
                 (float)Math.Floor(Position.y / Program.TILE_SIZE) * Program.TILE_SIZE - (sprite.size.y / 2));
         }
 
