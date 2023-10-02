@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using MyGame.Classes;
+using System.Diagnostics;
 
 namespace MyGame
 {
@@ -22,17 +23,17 @@ namespace MyGame
             this.speed = speed;
             this.direction = direction;
             this.health = health;
-            Program.enemies.Add(this);
+            GameManager.Instance.enemies.Add(this);
         }
 
         public override void Update()
         {
-            position += direction * Program.DeltaTime * speed;
+            transform.position += direction * Program.DeltaTime * speed;
         }
 
         public override void Render()
         {
-            Engine.Draw(sprite.root, position.x - sprite.size.x / 2, position.y - sprite.size.y / 2);
+            Engine.Draw(sprite.root, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
         }
 
         public void TakeDamage()
@@ -49,14 +50,14 @@ namespace MyGame
 
         private void DestroyEnemy()
         {
-            for (int i = 0; i < Program.towers.Count; i++)
+            for (int i = 0; i < GameManager.Instance.towers.Count; i++)
             {
-                if (Program.towers[i].Target == this) Program.towers[i].UnTarget();
-                Program.towers[i].RemoveEnemy(this);
+                if (GameManager.Instance.towers[i].Target == this) GameManager.Instance.towers[i].UnTarget();
+                GameManager.Instance.towers[i].RemoveEnemy(this);
             }
 
-            Program.enemies.Remove(this);
-            Program.gameObjects.Remove(this);
+            GameManager.Instance.enemies.Remove(this);
+            GameManager.Instance.gameObjects.Remove(this);
             Engine.Debug("Enemigo muerto");
         }
     }

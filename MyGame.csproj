@@ -55,6 +55,7 @@
       <DependentUpon>GameObject.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\EnemyFactory.cs" />
+    <Compile Include="Classes\GameManager.cs" />
     <Compile Include="Classes\GameObject.cs" />
     <Compile Include="Classes\Tower.cs">
       <DependentUpon>GameObject.cs</DependentUpon>
@@ -62,6 +63,7 @@
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Font.cs" />
     <Compile Include="Core\Sound.cs" />
+    <Compile Include="Core\Transform.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structs\Sprite.cs" />

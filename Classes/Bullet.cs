@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using MyGame.Classes;
+using System.Diagnostics;
 
 namespace MyGame
 {
@@ -19,21 +20,21 @@ namespace MyGame
 
         public override void Update()
         {
-            position += direction * Program.DeltaTime * speed;
+            transform.position += direction * Program.DeltaTime * speed;
 
             CheckCollision();
         }
 
         public void CheckCollision()
         {
-            for (int i = 0; i < Program.enemies.Count; i++)
+            for (int i = 0; i < GameManager.Instance.enemies.Count; i++)
             {
-                Enemy enemy = Program.enemies[i];
-                if (Vector2.Distance(position, enemy.Position) <= colliderRadius + enemy.ColliderRadius)
+                Enemy enemy = GameManager.Instance.enemies[i];
+                if (Vector2.Distance(transform.position, enemy.transform.position) <= colliderRadius + enemy.ColliderRadius)
                 {
                     enemy.TakeDamage();
                     Engine.Debug("Bala borrada");
-                    Program.gameObjects.Remove(this);
+                    GameManager.Instance.gameObjects.Remove(this);
                 }
             }
         }
@@ -50,7 +51,7 @@ namespace MyGame
 
         public override void Render()
         {
-            Engine.Draw(sprite.root, position.x - sprite.size.x / 2, position.y - sprite.size.y / 2);
+            Engine.Draw(sprite.root, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
         }
     }
 }

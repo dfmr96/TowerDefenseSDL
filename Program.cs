@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyGame.Classes;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
@@ -14,25 +15,17 @@ namespace MyGame
         private static DateTime _startTime;
         private static float _lastTimeFrame;
         public static float DeltaTime;
-        public const int ROWS = 40;
-        public const int COLUMNS = 19;
-        public const int TILE_SIZE = 32;
-        public static List<GameObject> gameObjects = new List<GameObject>();
-        public static List<Enemy> enemies = new List<Enemy>();
-        public static List<Tower> towers = new List<Tower>();
-        public static EnemyFactory enemyFactory = new EnemyFactory();
+
+        public static GameManager gameManager;
 
         static void Main(string[] args)
         {
             Engine.Initialize();
-
-            Initialize();
-
+            _startTime = DateTime.Now;
+            GameManager.Instance.InitBoard();
             while (true)
             {
-                float currentTime = (float)(DateTime.Now - _startTime).TotalSeconds;
-                DeltaTime = currentTime - _lastTimeFrame;
-                _lastTimeFrame = currentTime;
+                UpdateDeltaTime();
                 int fps = (int)Math.Floor(1 / DeltaTime);
                 //Engine.Debug($"{fps}, {DeltaTime}");
                 Update();
@@ -40,26 +33,20 @@ namespace MyGame
             }
         }
 
-        private static void Initialize()
+        private static void UpdateDeltaTime()
         {
-            _startTime = DateTime.Now;
-
-            //Tower tower1 = new Tower(new Vector2(1f * TILE_SIZE, 18f * TILE_SIZE), "assets/tower.png");
+            float currentTime = (float)(DateTime.Now - _startTime).TotalSeconds;
+            DeltaTime = currentTime - _lastTimeFrame;
+            _lastTimeFrame = currentTime;
         }
 
         private static void Update()
         {
             GetMouse();
 
-            if (Engine.KeyPress(Engine.KEY_RIGHT))
+            if (GameManager.Instance != null)
             {
-                Engine.Debug($"{gameObjects.Count}");
-            }
-
-            enemyFactory.Update();
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                gameObjects[i].Update();
+                GameManager.Instance.Update();
             }
         }
 
@@ -69,14 +56,9 @@ namespace MyGame
             Engine.Clear();
             Engine.Draw(background, 0, 0);
 
-            /*foreach (GameObject gameObject in gameObjects)
+            if (GameManager.Instance != null)
             {
-                gameObject.Render();
-            }*/
-
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                gameObjects[i].Render();
+                GameManager.Instance.Render();
             }
 
             Engine.Show();
@@ -101,16 +83,20 @@ namespace MyGame
                 if (Sdl.SDL_BUTTON_LEFT == m_event.button.button)
                 {
                     Engine.Debug("Left mouse button is down");
-                    Tower newTower = new Tower(new Vector2(m_event.button.x, m_event.button.y), "assets/tower.png");
+                    if (GameManager.Instance != null)
+                    {
+                        Tower newTower = new Tower(new Vector2(m_event.button.x, m_event.button.y), "assets/tower.png");
+                    }
+                    //Tower newTower = new Tower(new Vector2(m_event.button.x, m_event.button.y), "assets/tower.png");
                 }
-                else if (Sdl.SDL_BUTTON_RIGHT == m_event.button.button)
-                {
-                    Engine.Debug("'Right mouse button is down");
-                }
-                else if (Sdl.SDL_BUTTON_MIDDLE == m_event.button.button)
-                {
-                    Engine.Debug("Middle mouse button is down");
-                }
+                //else if (Sdl.SDL_BUTTON_RIGHT == m_event.button.button)
+                //{
+                //    Engine.Debug("'Right mouse button is down");
+                //}
+                //else if (Sdl.SDL_BUTTON_MIDDLE == m_event.button.button)
+                //{
+                //    Engine.Debug("Middle mouse button is down");
+                //}
             }
         }
     }

@@ -91,3 +91,9 @@ D:\Documentos\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\0.png
 D:\Documentos\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\1.png
 D:\Documentos\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\2.png
 D:\Documentos\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\3.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemy01.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemy02.png
+D:\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\0.png
+D:\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\1.png
+D:\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\2.png
+D:\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\3.png
