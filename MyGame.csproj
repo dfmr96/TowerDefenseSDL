@@ -51,6 +51,7 @@
       <DependentUpon>GameObject.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Animation.cs" />
+    <Compile Include="Classes\DirectionChanger.cs" />
     <Compile Include="Classes\Enemy.cs">
       <DependentUpon>GameObject.cs</DependentUpon>
     </Compile>

@@ -18,6 +18,7 @@ namespace MyGame.Classes
         public List<Enemy> enemies = new List<Enemy>();
         public List<Tower> towers = new List<Tower>();
         public EnemyFactory enemyFactory = new EnemyFactory();
+        public List<DirectionChanger> directionChangers = new List<DirectionChanger>();
 
         public static GameManager Instance
         {
@@ -35,6 +36,12 @@ namespace MyGame.Classes
         {
             board = new int[ROWS, COLUMNS];
             Engine.Debug("Board inicializado");
+            directionChangers.Add(new DirectionChanger(new Vector2(37f * GameManager.TILE_SIZE, 18.5f * GameManager.TILE_SIZE), new Vector2(0,-1)));
+            directionChangers.Add(new DirectionChanger(new Vector2(37f * GameManager.TILE_SIZE, 7.5f * GameManager.TILE_SIZE), new Vector2(-1, 0)));
+            directionChangers.Add(new DirectionChanger(new Vector2(27.5f * GameManager.TILE_SIZE, 7.5f * GameManager.TILE_SIZE), new Vector2(0, 1)));
+            directionChangers.Add(new DirectionChanger(new Vector2(27.5f * GameManager.TILE_SIZE, 15.5f * GameManager.TILE_SIZE), new Vector2(-1, 0)));
+            directionChangers.Add(new DirectionChanger(new Vector2(6.5f * GameManager.TILE_SIZE, 15.5f * GameManager.TILE_SIZE), new Vector2(0, -1)));
+            directionChangers.Add(new DirectionChanger(new Vector2(6.5f * GameManager.TILE_SIZE, 4.5f * GameManager.TILE_SIZE), new Vector2(0, 0)));
         }
 
         public void Update()
@@ -49,6 +56,11 @@ namespace MyGame.Classes
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update();
+            }
+
+            for (int i = 0; i <directionChangers.Count; i++)
+            {
+                directionChangers[i].Update();
             }
         }
 

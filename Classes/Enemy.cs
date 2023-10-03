@@ -1,5 +1,4 @@
 ﻿using MyGame.Classes;
-using System.Diagnostics;
 
 namespace MyGame
 {
@@ -26,9 +25,16 @@ namespace MyGame
             GameManager.Instance.enemies.Add(this);
         }
 
+        public void SetDirection(Vector2 directionToChange)
+        {
+            direction = directionToChange;
+        }
+
         public override void Update()
         {
             transform.position += direction * Program.DeltaTime * speed;
+
+
         }
 
         public override void Render()
