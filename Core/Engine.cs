@@ -270,6 +270,6 @@ class Engine
     public static int KEY_DOWN = Sdl.SDLK_DOWN;
     public static int KEY_RIGHT = Sdl.SDLK_RIGHT;
     public static int KEY_LEFT = Sdl.SDLK_LEFT;
-    
+    public static int KEY_ENTER = Sdl.SDLK_RETURN;
     //public static int MOUSE_0 = Sdl.SDL_BUTTON_LEFT;
 }

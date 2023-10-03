@@ -1,36 +1,36 @@
 ﻿using MyGame.Classes;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Threading;
 using Tao.Sdl;
 
 namespace MyGame
 {
     class Program
     {
-        static IntPtr background = Engine.LoadImage("assets/map.png");
         private static DateTime _startTime;
         private static float _lastTimeFrame;
         public static float DeltaTime;
 
-        public static GameManager gameManager;
-
         static void Main(string[] args)
         {
-            Engine.Initialize();
-            _startTime = DateTime.Now;
-            GameManager.Instance.InitBoard();
+
+            Init();
+
+
             while (true)
             {
                 UpdateDeltaTime();
                 int fps = (int)Math.Floor(1 / DeltaTime);
-                //Engine.Debug($"{fps}, {DeltaTime}");
                 Update();
                 Render();
+                //Engine.Debug($"{fps}, {DeltaTime}");
             }
+        }
+
+        public static void Init()
+        {
+            Engine.Initialize();
+            _startTime = DateTime.Now;
+            SceneManager sceneManager = SceneManager.Instance;
         }
 
         private static void UpdateDeltaTime()
@@ -44,23 +44,14 @@ namespace MyGame
         {
             GetMouse();
 
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.Update();
-            }
+            SceneManager.Instance.Update();
         }
 
         private static void Render()
 
         {
             Engine.Clear();
-            Engine.Draw(background, 0, 0);
-
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.Render();
-            }
-
+            SceneManager.Instance.Render();
             Engine.Show();
         }
 
@@ -83,11 +74,11 @@ namespace MyGame
                 if (Sdl.SDL_BUTTON_LEFT == m_event.button.button)
                 {
                     Engine.Debug("Left mouse button is down");
-                    if (GameManager.Instance != null)
+                    if (SceneManager.Instance.gameState == GameState.GamePlay)
                     {
                         Tower newTower = new Tower(new Vector2(m_event.button.x, m_event.button.y), "assets/tower.png");
                     }
-                    //Tower newTower = new Tower(new Vector2(m_event.button.x, m_event.button.y), "assets/tower.png");
+
                 }
                 //else if (Sdl.SDL_BUTTON_RIGHT == m_event.button.button)
                 //{

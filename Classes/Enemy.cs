@@ -5,9 +5,11 @@ namespace MyGame
     public class Enemy : GameObject
     {
         private int health = 3;
+        private float damage = 5;
         private Vector2 direction;
         private float speed = 0;
         private float colliderRadius = 8;
+        private Castle castle;
         public float ColliderRadius => colliderRadius;
 
         public int Health
@@ -22,12 +24,19 @@ namespace MyGame
             this.speed = speed;
             this.direction = direction;
             this.health = health;
+            this.castle = GameManager.Instance.castle;
             GameManager.Instance.enemies.Add(this);
         }
 
         public void SetDirection(Vector2 directionToChange)
         {
             direction = directionToChange;
+
+            if (directionToChange == new Vector2(0,0))
+            {
+                castle.TakeDamage(damage);
+                DestroyEnemy();
+            }
         }
 
         public override void Update()
@@ -56,6 +65,7 @@ namespace MyGame
 
         private void DestroyEnemy()
         {
+            if (GameManager.Instance == null) return;
             for (int i = 0; i < GameManager.Instance.towers.Count; i++)
             {
                 if (GameManager.Instance.towers[i].Target == this) GameManager.Instance.towers[i].UnTarget();

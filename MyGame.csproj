@@ -51,6 +51,7 @@
       <DependentUpon>GameObject.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Animation.cs" />
+    <Compile Include="Classes\Castle.cs" />
     <Compile Include="Classes\DirectionChanger.cs" />
     <Compile Include="Classes\Enemy.cs">
       <DependentUpon>GameObject.cs</DependentUpon>
@@ -58,6 +59,7 @@
     <Compile Include="Classes\EnemyFactory.cs" />
     <Compile Include="Classes\GameManager.cs" />
     <Compile Include="Classes\GameObject.cs" />
+    <Compile Include="Classes\SceneManager.cs" />
     <Compile Include="Classes\Tower.cs">
       <DependentUpon>GameObject.cs</DependentUpon>
     </Compile>
@@ -118,6 +120,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\Fonts\antiquity-print.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Core\App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
