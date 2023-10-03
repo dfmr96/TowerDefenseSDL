@@ -47,7 +47,11 @@ namespace MyGame
                 case EnemyColor.Red:
                     jewelsRewards = 3;
                     health = 5;
+<<<<<<< Updated upstream
                     speed = 50;
+=======
+                    speed = 60;
+>>>>>>> Stashed changes
                     base.sprite.root = Engine.LoadImage("assets/enemy01.png");
                     break;
                 case EnemyColor.Yellow:
@@ -115,6 +119,9 @@ namespace MyGame
         private void DestroyEnemy()
         {
             if (GameManager.Instance == null) return;
+
+            GameManager.Instance.enemiesRemaining--;
+            Engine.Debug($"{GameManager.Instance.enemiesRemaining}");
             for (int i = 0; i < GameManager.Instance.towers.Count; i++)
             {
                 if (GameManager.Instance.towers[i].Target == this) GameManager.Instance.towers[i].UnTarget();

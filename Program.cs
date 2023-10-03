@@ -76,7 +76,10 @@ namespace MyGame
                     Engine.Debug("Left mouse button is down");
                     if (SceneManager.Instance.gameState == GameState.GamePlay)
                     {
-                        Tower newTower = new Tower(new Vector2(m_event.button.x, m_event.button.y), "assets/tower.png");
+                        if (GameManager.Instance.Jewels >= 5)
+                        {
+                            Tower newTower = new Tower(new Vector2(m_event.button.x, m_event.button.y), "assets/tower.png");
+                        }
                     }
 
                 }

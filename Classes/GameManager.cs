@@ -23,7 +23,8 @@ namespace MyGame.Classes
         public Castle castle = new Castle();
         private Font healthFont = new Font("assets/Fonts/antiquity-print.ttf", 36);
         private IntPtr jewelUI = Engine.LoadImage("assets/jewel.png");
-        private float jewels = 0;
+        private float jewels = 25;
+        public float enemiesRemaining = 30;
         public static GameManager Instance
         {
             get
@@ -36,6 +37,8 @@ namespace MyGame.Classes
                 return instance;
             }
         }
+
+        public float Jewels => jewels;
 
         public void InitBoard()
         {
@@ -81,7 +84,9 @@ namespace MyGame.Classes
             }
             Engine.DrawText($"{castle.Health}/100", 142, -5, 255, 255, 255, healthFont);
             Engine.DrawText($" = {jewels}", 1180, 16, 255, 255, 255, healthFont);
+            Engine.DrawText($" = {enemiesRemaining}", 1180, 48, 255, 255, 255, healthFont);
             Engine.Draw(jewelUI, 1168, 24, 64,64);
+            Engine.Draw(Engine.LoadImage("assets/enemy01.png"), 1168, 80, 64, 64);
         }
 
         public void GameOver()

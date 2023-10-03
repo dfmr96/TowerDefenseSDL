@@ -8,7 +8,7 @@ namespace MyGame.Classes
 {
     public class Castle
     {
-        private float health = 5;
+        private float health = 100;
 
         public float Health => health;
 

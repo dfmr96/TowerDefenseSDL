@@ -17,6 +17,8 @@ namespace MyGame
         private float rangeRadius = 120;
         private List<Enemy> enemiesInRange = new List<Enemy>();
         private Enemy target;
+        private int cost = 5;
+
         public Enemy Target => target;
         public List<Enemy> EnemiesInRange => enemiesInRange;
 
@@ -29,7 +31,7 @@ namespace MyGame
         public Tower(Vector2 initPos, string spriteDir)
             : base(initPos, spriteDir, new Vector2(32, 64))
         {
-            GameManager.Instance.towers.Add(this);
+            GameManager.Instance.IncreaseJewels(-cost);
             bulletSpawnPos = new Vector2(Tile.x + sprite.size.x * 0.5f, Tile.y - sprite.size.y * 0.5f);
             /*position = initPos;
             sprite.root = Engine.LoadImage(spriteDir);*/
@@ -37,6 +39,7 @@ namespace MyGame
             CreateAnimations();
             currentAnimation = idleAnimation;
             Engine.Debug($"Torre creada, {transform.position.x},{transform.position.y}");
+            GameManager.Instance.towers.Add(this);
         }
 
         private void CreateAnimations()
