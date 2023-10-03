@@ -97,3 +97,6 @@ D:\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\0.png
 D:\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\1.png
 D:\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\2.png
 D:\TowerDefenseSDL\bin\Debug\assets\towerAnimations\idle\3.png
+D:\Documentos\TowerDefenseSDL\bin\Debug\assets\defeat.png
+D:\Documentos\TowerDefenseSDL\bin\Debug\assets\menu.png
+D:\Documentos\TowerDefenseSDL\bin\Debug\assets\victory.png
