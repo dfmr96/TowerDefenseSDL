@@ -37,11 +37,13 @@ namespace MyGame
             switch (enemyColor)
             {
                 case EnemyColor.Red:
+                    jewelsRewards = 3;
                     health = 5;
                     speed = 150;
                     base.sprite.root = Engine.LoadImage("assets/enemy01.png");
                     break;
                 case EnemyColor.Yellow:
+                    jewelsRewards = 5;
                     health = 12;
                     speed = 30;
                     base.sprite.root = Engine.LoadImage("assets/enemy02.png");
