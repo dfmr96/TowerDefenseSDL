@@ -6,7 +6,7 @@ namespace MyGame
     public class Bullet : GameObject
     {
         private Vector2 direction = new Vector2(-1, 0);
-        private float speed = 175;
+        private float speed = 250;
         private float colliderRadius = 3;
 
         public Bullet(Vector2 initPos, string spriteDir, Vector2 direction)

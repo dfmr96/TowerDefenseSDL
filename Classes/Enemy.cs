@@ -1,4 +1,6 @@
 ﻿using MyGame.Classes;
+using System.Collections.Generic;
+using System;
 using System.Net.Configuration;
 
 namespace MyGame
@@ -11,6 +13,12 @@ namespace MyGame
     }
     public class Enemy : GameObject
     {
+        private Animation rightAnimation;
+        private Animation leftAnimation;
+        private Animation upAnimation;
+        private Animation downAnimation;
+        private Animation explosionAnimation;
+        private Animation currentAnimation;
         private EnemyColor enemyColor;
         private int health = 3;
         private float damage = 5;
@@ -39,7 +47,7 @@ namespace MyGame
                 case EnemyColor.Red:
                     jewelsRewards = 3;
                     health = 5;
-                    speed = 150;
+                    speed = 50;
                     base.sprite.root = Engine.LoadImage("assets/enemy01.png");
                     break;
                 case EnemyColor.Yellow:
@@ -51,8 +59,21 @@ namespace MyGame
                 case EnemyColor.Cyan:
                     break;
             }
-
+            CreateAnimations();
+            currentAnimation = rightAnimation;
             GameManager.Instance.enemies.Add(this);
+        }
+
+        private void CreateAnimations()
+        {
+            List<IntPtr> frames = new List<IntPtr>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/right/{i}.png");
+                frames.Add(frame);
+            }
+            rightAnimation = new Animation("idle", frames, 0.2f, true);
         }
 
         public void SetDirection(Vector2 directionToChange)
