@@ -26,7 +26,7 @@ namespace MyGame
             }
         }
 
-        public static void Init()
+        private static void Init()
         {
             Engine.Initialize();
             _startTime = DateTime.Now;
@@ -74,7 +74,7 @@ namespace MyGame
                 if (Sdl.SDL_BUTTON_LEFT == m_event.button.button)
                 {
                     Engine.Debug("Left mouse button is down");
-                    if (SceneManager.Instance.gameState == GameState.GamePlay)
+                    if (SceneManager.Instance.GameState == GameState.GamePlay)
                     {
                         if (GameManager.Instance.Jewels >= 5)
                         {

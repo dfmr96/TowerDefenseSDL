@@ -18,7 +18,7 @@ namespace MyGame.Classes
     public class SceneManager
     {
         private static SceneManager instance;
-        public GameState gameState;
+        private GameState gameState;
         private IntPtr mainMenuBG = Engine.LoadImage("assets/menu.png");
         private Font sceneDebugUI = new Font("assets/Fonts/antiquity-print.ttf", 24);
         private IntPtr defeatBG = Engine.LoadImage("assets/defeat.png");
@@ -30,15 +30,17 @@ namespace MyGame.Classes
                 if (instance == null)
                 {
                     instance = new SceneManager();
-                    instance.gameState = GameState.MainMenu;
+                    instance.GameState = GameState.MainMenu;
                 }
                 return instance;
             }
         }
 
+        public GameState GameState { get => gameState; private set => gameState = value; }
+
         public void Update()
         {
-            switch (gameState)
+            switch (GameState)
             {
                 case GameState.Logo:
                     break;
@@ -47,7 +49,7 @@ namespace MyGame.Classes
                     {
                         GameManager.Instance.DestroyGameManager();
                         GameManager.Instance.InitBoard();
-                        gameState = GameState.GamePlay;
+                        GameState = GameState.GamePlay;
                     }
                     break;
                 case GameState.GamePlay:
@@ -56,13 +58,13 @@ namespace MyGame.Classes
                 case GameState.Victory:
                     if (Engine.KeyPress(Engine.KEY_ESP))
                     {
-                        gameState = GameState.MainMenu;
+                        GameState = GameState.MainMenu;
                     }
                     break;
                 case GameState.Defeat:
                     if (Engine.KeyPress(Engine.KEY_ESP))
                     {
-                        gameState = GameState.MainMenu;
+                        GameState = GameState.MainMenu;
                     }
                     break;
             }
@@ -70,7 +72,7 @@ namespace MyGame.Classes
 
         public void Render()
         {
-            switch (gameState)
+            switch (GameState)
             {
                 case GameState.Logo:
                     break;
@@ -89,7 +91,12 @@ namespace MyGame.Classes
                     Engine.Draw(defeatBG, 0, 0);
                     break;
             }
-            Engine.DrawText($"{gameState}", 1200, 720, 255, 255, 255, sceneDebugUI);
+            Engine.DrawText($"{GameState}", 1200, 720, 255, 255, 255, sceneDebugUI);
+        }
+
+        public void ChangeScene(GameState gameState)
+        {
+            GameState = gameState;
         }
     }
 }

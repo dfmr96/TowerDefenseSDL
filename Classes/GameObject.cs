@@ -9,7 +9,7 @@ namespace MyGame
     public abstract class GameObject
     {
         public Transform transform = new Transform();
-        public Sprite sprite;
+        protected Sprite sprite;
 
 
         public Vector2 SpriteCenter => new Vector2(transform.position.x + sprite.size.x / 2, transform.position.y - sprite.size.y / 2);

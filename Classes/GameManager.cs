@@ -10,29 +10,29 @@ namespace MyGame.Classes
     public  class GameManager
     {
         private static GameManager instance;
-        public int[,] board;
-        public const int ROWS = 40;
-        public const int COLUMNS = 19;
-        public const int TILE_SIZE = 32;
+        private int[,] board;
+        private const int ROWS = 40;
+        private const int COLUMNS = 19;
         private IntPtr background = Engine.LoadImage("assets/map.png");
+        private Font healthFont = new Font("assets/Fonts/antiquity-print.ttf", 36);
+        private IntPtr jewelUI = Engine.LoadImage("assets/jewel.png");
+        private float jewels = 25;
+        private float enemiesRemaining = 30;
+        public const int TILE_SIZE = 32;
         public List<GameObject> gameObjects = new List<GameObject>();
         public List<Enemy> enemies = new List<Enemy>();
         public List<Tower> towers = new List<Tower>();
         public EnemyFactory enemyFactory = new EnemyFactory();
         public List<DirectionChanger> directionChangers = new List<DirectionChanger>();
         public Castle castle = new Castle();
-        private Font healthFont = new Font("assets/Fonts/antiquity-print.ttf", 36);
-        private IntPtr jewelUI = Engine.LoadImage("assets/jewel.png");
-        private float jewels = 25;
-        private float enemiesRemaining = 30;
         public static GameManager Instance
         {
             get
             {
-                if (instance == null && SceneManager.Instance.gameState == GameState.MainMenu)
+                if (instance == null && SceneManager.Instance.GameState == GameState.MainMenu)
                 {
                     instance = new GameManager();
-                    Engine.Debug($"Game Manager init , {SceneManager.Instance.gameState}");
+                    Engine.Debug($"Game Manager init , {SceneManager.Instance.GameState}");
                 }
                 return instance;
             }
@@ -103,11 +103,11 @@ namespace MyGame.Classes
         {
             //ClearAllList();
             //DestroyGameManager();
-            SceneManager.Instance.gameState = GameState.Defeat;
+            SceneManager.Instance.GameState = GameState.Defeat;
         }
         public void Victory()
         {
-            SceneManager.Instance.gameState = GameState.Victory;
+            SceneManager.Instance.GameState = GameState.Victory;
         }
 
         public void DestroyGameManager()
