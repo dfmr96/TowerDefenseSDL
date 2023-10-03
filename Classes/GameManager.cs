@@ -22,6 +22,8 @@ namespace MyGame.Classes
         public List<DirectionChanger> directionChangers = new List<DirectionChanger>();
         public Castle castle = new Castle();
         private Font healthFont = new Font("assets/Fonts/antiquity-print.ttf", 36);
+        private IntPtr jewelUI = Engine.LoadImage("assets/jewel.png");
+        private float jewels = 0;
         public static GameManager Instance
         {
             get
@@ -78,6 +80,8 @@ namespace MyGame.Classes
                 gameObjects[i].Render();
             }
             Engine.DrawText($"{castle.Health}/100", 142, -5, 255, 255, 255, healthFont);
+            Engine.DrawText($" = {jewels}", 1180, 16, 255, 255, 255, healthFont);
+            Engine.Draw(jewelUI, 1168, 24, 64,64);
         }
 
         public void GameOver()
@@ -98,6 +102,11 @@ namespace MyGame.Classes
             enemies.Clear();
             towers.Clear();
             directionChangers.Clear();
+        }
+
+        public void IncreaseJewels(float amount)
+        {
+            jewels += amount;
         }
     }
 }

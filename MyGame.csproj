@@ -79,6 +79,9 @@
     <Content Include="assets\defeat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\jewel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\enemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

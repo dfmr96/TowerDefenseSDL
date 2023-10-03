@@ -1,15 +1,24 @@
 ﻿using MyGame.Classes;
+using System.Net.Configuration;
 
 namespace MyGame
 {
+    public enum EnemyColor
+    {
+        Red,
+        Yellow,
+        Cyan
+    }
     public class Enemy : GameObject
     {
+        private EnemyColor enemyColor;
         private int health = 3;
         private float damage = 5;
         private Vector2 direction;
         private float speed = 0;
         private float colliderRadius = 8;
         private Castle castle;
+        private float jewelsRewards = 3;
         public float ColliderRadius => colliderRadius;
 
         public int Health
@@ -18,13 +27,29 @@ namespace MyGame
             private set { health = value; }
         }
 
-        public Enemy(Vector2 initPosition, string spriteDir, float speed, Vector2 direction, int health)
-            : base(initPosition, spriteDir, new Vector2(16, 16))
+        public Enemy(EnemyColor color)
         {
-            this.speed = speed;
-            this.direction = direction;
-            this.health = health;
+            enemyColor = color;
+            base.transform.position = new Vector2(-GameManager.TILE_SIZE, 18.5f * GameManager.TILE_SIZE);
+            direction = new Vector2(1, 0);
             this.castle = GameManager.Instance.castle;
+
+            switch (enemyColor)
+            {
+                case EnemyColor.Red:
+                    health = 5;
+                    speed = 150;
+                    base.sprite.root = Engine.LoadImage("assets/enemy01.png");
+                    break;
+                case EnemyColor.Yellow:
+                    health = 12;
+                    speed = 30;
+                    base.sprite.root = Engine.LoadImage("assets/enemy02.png");
+                    break;
+                case EnemyColor.Cyan:
+                    break;
+            }
+
             GameManager.Instance.enemies.Add(this);
         }
 
@@ -32,7 +57,7 @@ namespace MyGame
         {
             direction = directionToChange;
 
-            if (directionToChange == new Vector2(0,0))
+            if (directionToChange == new Vector2(0, 0))
             {
                 castle.TakeDamage(damage);
                 DestroyEnemy();
@@ -57,6 +82,7 @@ namespace MyGame
             if (health <= 0)
             {
                 health = 0;
+                GameManager.Instance.IncreaseJewels(jewelsRewards);
                 DestroyEnemy();
             }
 

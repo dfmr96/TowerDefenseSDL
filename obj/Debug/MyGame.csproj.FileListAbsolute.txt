@@ -104,3 +104,4 @@ D:\TowerDefenseSDL\bin\Debug\assets\defeat.png
 D:\TowerDefenseSDL\bin\Debug\assets\menu.png
 D:\TowerDefenseSDL\bin\Debug\assets\victory.png
 D:\TowerDefenseSDL\bin\Debug\assets\Fonts\antiquity-print.ttf
+D:\TowerDefenseSDL\bin\Debug\assets\jewel.png
