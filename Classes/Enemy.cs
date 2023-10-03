@@ -47,20 +47,20 @@ namespace MyGame
                 case EnemyColor.Red:
                     jewelsRewards = 3;
                     health = 5;
-<<<<<<< Updated upstream
-                    speed = 50;
-=======
-                    speed = 60;
->>>>>>> Stashed changes
+                    speed = 75;
                     base.sprite.root = Engine.LoadImage("assets/enemy01.png");
                     break;
                 case EnemyColor.Yellow:
                     jewelsRewards = 5;
-                    health = 12;
-                    speed = 30;
+                    health = 24;
+                    speed = 45;
                     base.sprite.root = Engine.LoadImage("assets/enemy02.png");
                     break;
                 case EnemyColor.Cyan:
+                    jewelsRewards = 10;
+                    health = 48;
+                    speed = 30;
+                    base.sprite.root = Engine.LoadImage("assets/enemy03.png");
                     break;
             }
             CreateAnimations();
@@ -120,8 +120,9 @@ namespace MyGame
         {
             if (GameManager.Instance == null) return;
 
-            GameManager.Instance.enemiesRemaining--;
-            Engine.Debug($"{GameManager.Instance.enemiesRemaining}");
+            GameManager.Instance.EnemiesRemaining--;
+            GameManager.Instance.CheckEnemies();
+            Engine.Debug($"{GameManager.Instance.EnemiesRemaining}");
             for (int i = 0; i < GameManager.Instance.towers.Count; i++)
             {
                 if (GameManager.Instance.towers[i].Target == this) GameManager.Instance.towers[i].UnTarget();

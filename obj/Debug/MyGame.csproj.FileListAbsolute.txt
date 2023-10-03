@@ -132,3 +132,12 @@ D:\Documentos\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\right\0.png
 D:\Documentos\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\right\1.png
 D:\Documentos\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\right\2.png
 D:\Documentos\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\right\3.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\down\0.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\down\1.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\down\2.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\down\3.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\right\0.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\right\1.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\right\2.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemyAnimations\right\3.png
+D:\TowerDefenseSDL\bin\Debug\assets\enemy03.png
