@@ -15,7 +15,7 @@ class Engine
         ancho = 1280;
         alto = 768;
         int colores = 24;
-        
+
         int flags = (Sdl.SDL_HWSURFACE | Sdl.SDL_DOUBLEBUF | Sdl.SDL_ANYFORMAT);
         Sdl.SDL_Init(Sdl.SDL_INIT_EVERYTHING);
         screen = Sdl.SDL_SetVideoMode(
@@ -166,30 +166,30 @@ class Engine
         Sdl.SDL_Event m_event;
         Sdl.SDL_PollEvent(out m_event);
 
-        
+
         if (Sdl.SDL_MOUSEMOTION == m_event.type)
         {
             int x, y;
             Sdl.SDL_GetMouseState(out x, out y);
             Debug($"{x},{y}");
         }
-        
-        if ( Sdl.SDL_MOUSEBUTTONDOWN == m_event.type )
+
+        if (Sdl.SDL_MOUSEBUTTONDOWN == m_event.type)
         {
             if (Sdl.SDL_BUTTON_LEFT == m_event.button.button)
             {
                 Debug("Left mouse button is down");
             }
-            else if ( Sdl.SDL_BUTTON_RIGHT == m_event.button.button )
+            else if (Sdl.SDL_BUTTON_RIGHT == m_event.button.button)
             {
                 Debug("'Right mouse button is down");
             }
-            else if ( Sdl.SDL_BUTTON_MIDDLE == m_event.button.button )
+            else if (Sdl.SDL_BUTTON_MIDDLE == m_event.button.button)
             {
                 Debug("Middle mouse button is down");
             }
         }
-        
+
 
 
 

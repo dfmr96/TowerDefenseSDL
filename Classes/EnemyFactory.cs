@@ -7,7 +7,7 @@ namespace MyGame
 {
     public class EnemyFactory
     {
-        private float spawnRate =5f;
+        private float spawnRate = 5f;
         private float spawnRateCounter = 0;
 
         public void Update()
@@ -38,7 +38,7 @@ namespace MyGame
         public void CreateWave(int red, int yellow, int cyan)
         {
             for (int i = 0; i < red; i++)
-            {          
+            {
                 Enemy newEnemy = new Enemy(EnemyColor.Red);
                 newEnemy.transform.position.x = (-100 * i) - 50;
                 spawnRateCounter = 0;

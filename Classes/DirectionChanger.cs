@@ -13,7 +13,7 @@ namespace MyGame.Classes
         private Vector2 directionToChange;
         private float detectionRadius = 12;
 
-        public DirectionChanger(Vector2 position,  Vector2 directionToChange)
+        public DirectionChanger(Vector2 position, Vector2 directionToChange)
         {
             transform.position = position;
             this.directionToChange = directionToChange;

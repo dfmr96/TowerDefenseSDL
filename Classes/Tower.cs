@@ -17,9 +17,10 @@ namespace MyGame
         private float rangeRadius = 120;
         private List<Enemy> enemiesInRange = new List<Enemy>();
         private Enemy target;
-        private int cost = 5;
+        private static int cost = 9;
 
         public Enemy Target => target;
+        public static int Cost => cost;
         public List<Enemy> EnemiesInRange => enemiesInRange;
 
         public Vector2 Tile

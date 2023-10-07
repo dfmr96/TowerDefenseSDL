@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyGame.Classes
 {
-    public  class GameManager
+    public class GameManager
     {
         private static GameManager instance;
         private int[,] board;
@@ -17,7 +17,9 @@ namespace MyGame.Classes
         private Font healthFont = new Font("assets/Fonts/antiquity-print.ttf", 36);
         private IntPtr jewelUI = Engine.LoadImage("assets/jewel.png");
         private float jewels = 25;
-        private float enemiesRemaining = 30;
+        private float jewelPerSecond = 0.5f;
+        private float jewelCounter = 0;
+        private float enemiesRemaining = 51;
         public const int TILE_SIZE = 32;
         public List<GameObject> gameObjects = new List<GameObject>();
         public List<Enemy> enemies = new List<Enemy>();
@@ -40,22 +42,22 @@ namespace MyGame.Classes
 
         public float Jewels => jewels;
 
-        public float EnemiesRemaining 
+        public float EnemiesRemaining
         {
             get
             {
                 return enemiesRemaining;
             }
-            set => enemiesRemaining = value; 
+            set => enemiesRemaining = value;
         }
 
         public void InitBoard()
         {
             board = new int[ROWS, COLUMNS];
             Engine.Debug("Board inicializado");
-            directionChangers.Add(new DirectionChanger(new Vector2(37f * GameManager.TILE_SIZE, 18.5f * GameManager.TILE_SIZE), new Vector2(0,-1)));
+            directionChangers.Add(new DirectionChanger(new Vector2(37f * GameManager.TILE_SIZE, 18.5f * GameManager.TILE_SIZE), new Vector2(0, -1)));
             directionChangers.Add(new DirectionChanger(new Vector2(37f * GameManager.TILE_SIZE, 7.5f * GameManager.TILE_SIZE), new Vector2(-1, 0)));
-            directionChangers.Add(new DirectionChanger(new Vector2(27.5f * GameManager.TILE_SIZE, 7.5f * GameManager.TILE_SIZE), new Vector2(0, 1)));
+            directionChangers.Add(new DirectionChanger(new Vector2(27.1f * GameManager.TILE_SIZE, 7.5f * GameManager.TILE_SIZE), new Vector2(0, 1)));
             directionChangers.Add(new DirectionChanger(new Vector2(27.5f * GameManager.TILE_SIZE, 15.5f * GameManager.TILE_SIZE), new Vector2(-1, 0)));
             directionChangers.Add(new DirectionChanger(new Vector2(6.5f * GameManager.TILE_SIZE, 15.5f * GameManager.TILE_SIZE), new Vector2(0, -1)));
             directionChangers.Add(new DirectionChanger(new Vector2(6.5f * GameManager.TILE_SIZE, 4.5f * GameManager.TILE_SIZE), new Vector2(0, 0)));
@@ -64,7 +66,13 @@ namespace MyGame.Classes
 
         public void Update()
         {
-            
+            jewelCounter += Program.DeltaTime;
+
+            if (jewelCounter > 1 / jewelPerSecond)
+            {
+                jewels++;
+                jewelCounter = 0;
+            }
 
             if (Engine.KeyPress(Engine.KEY_RIGHT))
             {
@@ -78,7 +86,7 @@ namespace MyGame.Classes
                 gameObjects[i].Update();
             }
 
-            for (int i = 0; i <directionChangers.Count; i++)
+            for (int i = 0; i < directionChangers.Count; i++)
             {
                 directionChangers[i].Update();
             }
@@ -95,7 +103,7 @@ namespace MyGame.Classes
             Engine.DrawText($"{castle.Health}/100", 142, -5, 255, 255, 255, healthFont);
             Engine.DrawText($" = {jewels}", 1180, 16, 255, 255, 255, healthFont);
             Engine.DrawText($" = {EnemiesRemaining}", 1180, 48, 255, 255, 255, healthFont);
-            Engine.Draw(jewelUI, 1168, 24, 64,64);
+            Engine.Draw(jewelUI, 1168, 24, 64, 64);
             Engine.Draw(Engine.LoadImage("assets/enemy01.png"), 1168, 80, 64, 64);
         }
 
@@ -103,11 +111,13 @@ namespace MyGame.Classes
         {
             //ClearAllList();
             //DestroyGameManager();
-            SceneManager.Instance.GameState = GameState.Defeat;
+            SceneManager.Instance.ChangeScene(GameState.Defeat);
+            //SceneManager.Instance.GameState = GameState.Defeat;
         }
         public void Victory()
         {
-            SceneManager.Instance.GameState = GameState.Victory;
+            SceneManager.Instance.ChangeScene(GameState.Victory);
+            //SceneManager.Instance.GameState = GameState.Victory;
         }
 
         public void DestroyGameManager()
@@ -132,11 +142,17 @@ namespace MyGame.Classes
         {
             switch (enemiesRemaining)
             {
-                case 25:
-                    enemyFactory.CreateWave(9, 1, 0);
+                case 45:
+                    enemyFactory.CreateWave(5, 1, 0);
                     break;
-                case 15:
-                    enemyFactory.CreateWave(5, 3, 2);
+                case 37:
+                    enemyFactory.CreateWave(5, 3, 0);
+                    break;
+                case 29:
+                    enemyFactory.CreateWave(9, 4, 1);
+                    break;
+                case 17:
+                    enemyFactory.CreateWave(8, 3, 3);
                     break;
                 case 0:
                     Victory();

@@ -21,7 +21,7 @@ namespace MyGame
         private Animation currentAnimation;
         private EnemyColor enemyColor;
         private int health = 3;
-        private float damage = 5;
+        private float damage = 0;
         private Vector2 direction;
         private float speed = 0;
         private float colliderRadius = 8;
@@ -45,27 +45,49 @@ namespace MyGame
             switch (enemyColor)
             {
                 case EnemyColor.Red:
-                    jewelsRewards = 3;
+                    CreateAnimations();
+                    jewelsRewards = 2;
                     health = 5;
-                    speed = 75;
+                    speed = 85;//85;
+                    damage = 5;
                     base.sprite.root = Engine.LoadImage("assets/enemy01.png");
+                    currentAnimation = rightAnimation;
                     break;
                 case EnemyColor.Yellow:
+                    CreateAnimations();
                     jewelsRewards = 5;
                     health = 24;
-                    speed = 45;
+                    speed = 55;
+                    damage = 10;
                     base.sprite.root = Engine.LoadImage("assets/enemy02.png");
+                    currentAnimation = rightAnimation;
                     break;
                 case EnemyColor.Cyan:
                     jewelsRewards = 10;
                     health = 48;
-                    speed = 30;
+                    speed = 40;
+                    damage = 15;
                     base.sprite.root = Engine.LoadImage("assets/enemy03.png");
                     break;
             }
-            CreateAnimations();
-            currentAnimation = rightAnimation;
+
+
             GameManager.Instance.enemies.Add(this);
+        }
+
+        private String GetFrameRoot(EnemyColor color)
+        {
+            switch (color)
+            {
+                case EnemyColor.Red:
+                    return "red";
+                case EnemyColor.Yellow:
+                    return "yellow";
+                case EnemyColor.Cyan:
+                    return "";
+                default:
+                    return "";
+            }
         }
 
         private void CreateAnimations()
@@ -74,7 +96,7 @@ namespace MyGame
 
             for (int i = 0; i < 4; i++)
             {
-                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/right/{i}.png");
+                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/right/{GetFrameRoot(enemyColor)}/{i}.png");
                 frames.Add(frame);
             }
             rightAnimation = new Animation("idle", frames, 0.2f, true);
@@ -93,14 +115,18 @@ namespace MyGame
 
         public override void Update()
         {
+            if (enemyColor == EnemyColor.Red) currentAnimation.Update();
+            if (enemyColor == EnemyColor.Yellow) currentAnimation.Update();
             transform.position += direction * Program.DeltaTime * speed;
-
 
         }
 
         public override void Render()
         {
             Engine.Draw(sprite.root, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
+            if (enemyColor == EnemyColor.Red) Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
+            if (enemyColor == EnemyColor.Yellow) Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
+
         }
 
         public void TakeDamage()
