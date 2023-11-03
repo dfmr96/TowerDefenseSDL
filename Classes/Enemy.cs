@@ -50,7 +50,7 @@ namespace MyGame
                     health = 5;
                     speed = 85;//85;
                     damage = 5;
-                    base.sprite.root = Engine.LoadImage("assets/enemy01.png");
+                    //base.sprite.root = Engine.LoadImage("assets/enemy01.png");
                     currentAnimation = rightAnimation;
                     break;
                 case EnemyColor.Yellow:
@@ -59,15 +59,17 @@ namespace MyGame
                     health = 24;
                     speed = 55;
                     damage = 10;
-                    base.sprite.root = Engine.LoadImage("assets/enemy02.png");
+                    //base.sprite.root = Engine.LoadImage("assets/enemy02.png");
                     currentAnimation = rightAnimation;
                     break;
                 case EnemyColor.Cyan:
+                    CreateAnimations();
                     jewelsRewards = 10;
                     health = 48;
                     speed = 40;
                     damage = 15;
-                    base.sprite.root = Engine.LoadImage("assets/enemy03.png");
+                    //base.sprite.root = Engine.LoadImage("assets/enemy03.png");
+                    currentAnimation = rightAnimation;
                     break;
             }
 
@@ -84,7 +86,7 @@ namespace MyGame
                 case EnemyColor.Yellow:
                     return "yellow";
                 case EnemyColor.Cyan:
-                    return "";
+                    return "cyan";
                 default:
                     return "";
             }
@@ -92,14 +94,50 @@ namespace MyGame
 
         private void CreateAnimations()
         {
-            List<IntPtr> frames = new List<IntPtr>();
+            List<IntPtr> rightFrames = new List<IntPtr>();
 
             for (int i = 0; i < 4; i++)
             {
                 IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/right/{GetFrameRoot(enemyColor)}/{i}.png");
-                frames.Add(frame);
+                rightFrames.Add(frame);
             }
-            rightAnimation = new Animation("idle", frames, 0.2f, true);
+            rightAnimation = new Animation("right", rightFrames, 0.2f, true);
+
+            List<IntPtr> upFrames = new List<IntPtr>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/up/{GetFrameRoot(enemyColor)}/{i}.png");
+                upFrames.Add(frame);
+            }
+            upAnimation = new Animation("up", upFrames, 0.2f, true);
+
+            List<IntPtr> leftFrames = new List<IntPtr>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/left/{GetFrameRoot(enemyColor)}/{i}.png");
+                leftFrames.Add(frame);
+            }
+            leftAnimation = new Animation("left", leftFrames, 0.2f, true);
+
+            List<IntPtr> downFrames = new List<IntPtr>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/down/{GetFrameRoot(enemyColor)}/{i}.png");
+                downFrames.Add(frame);
+            }
+            downAnimation = new Animation("down", downFrames, 0.2f, true);
+
+            List<IntPtr> explosionFrames = new List<IntPtr>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/explosion/{GetFrameRoot(enemyColor)}/{i}.png");
+                explosionFrames.Add(frame);
+            }
+            explosionAnimation = new Animation("explosion", explosionFrames, 0.2f, false);
         }
 
         public void SetDirection(Vector2 directionToChange)
@@ -115,8 +153,29 @@ namespace MyGame
 
         public override void Update()
         {
+            if (direction == new Vector2(0, -1))
+            {
+                currentAnimation = upAnimation;
+            }
+
+            if (direction == new Vector2(-1, 0))
+            {
+                currentAnimation = leftAnimation;
+            }
+
+            if (direction == new Vector2(0, 1))
+            {
+                currentAnimation = downAnimation;
+            }
+
+            if (direction == new Vector2(0, 0))
+            {
+                currentAnimation = explosionAnimation;
+            }
+
             if (enemyColor == EnemyColor.Red) currentAnimation.Update();
             if (enemyColor == EnemyColor.Yellow) currentAnimation.Update();
+            if (enemyColor == EnemyColor.Cyan) currentAnimation.Update();
             transform.position += direction * Program.DeltaTime * speed;
 
         }
@@ -126,7 +185,7 @@ namespace MyGame
             Engine.Draw(sprite.root, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
             if (enemyColor == EnemyColor.Red) Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
             if (enemyColor == EnemyColor.Yellow) Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
-
+            if (enemyColor == EnemyColor.Cyan) Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
         }
 
         public void TakeDamage()
