@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyGame.Classes
 {
     public class GameManager
     {
         private static GameManager instance;
+        public const int ROWS = 24;
+        public const int COLUMNS = 40;
         private int[,] board;
-        private const int ROWS = 40;
-        private const int COLUMNS = 19;
         private IntPtr background = Engine.LoadImage("assets/map.png");
         private Font healthFont = new Font("assets/Fonts/antiquity-print.ttf", 36);
         private IntPtr jewelUI = Engine.LoadImage("assets/jewel.png");
@@ -53,15 +49,72 @@ namespace MyGame.Classes
 
         public void InitBoard()
         {
-            board = new int[ROWS, COLUMNS];
+            Engine.OnMouseClick1 += CreateTower;
+            board = new int[ROWS, COLUMNS]{
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
+                                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+                            };
+            PrintBoard();
             Engine.Debug("Board inicializado");
+            CreateDirectionChangers();
+            enemyFactory.CreateWave(10, 0, 0);
+
+        }
+
+        public void PrintBoard()
+        {
+            string boardMatrix = "   ";
+            for (int n = 0; n < ROWS; n++)
+            {
+                boardMatrix += " _";
+            }
+
+            boardMatrix += "\n";
+
+            for (int i = 0; i < ROWS; i++)
+            {
+                if (i < 10) boardMatrix += " ";
+                boardMatrix += $"{i}|";
+                for (int j = 0; j < COLUMNS; j++)
+                {
+                    boardMatrix += $" {board[i, j]}";
+                }
+                boardMatrix += "\n";
+            }
+
+            Engine.Debug(boardMatrix);
+        }
+
+        private void CreateDirectionChangers()
+        {
             directionChangers.Add(new DirectionChanger(new Vector2(37f * GameManager.TILE_SIZE, 18.5f * GameManager.TILE_SIZE), new Vector2(0, -1)));
             directionChangers.Add(new DirectionChanger(new Vector2(37f * GameManager.TILE_SIZE, 7.5f * GameManager.TILE_SIZE), new Vector2(-1, 0)));
             directionChangers.Add(new DirectionChanger(new Vector2(27.1f * GameManager.TILE_SIZE, 7.5f * GameManager.TILE_SIZE), new Vector2(0, 1)));
             directionChangers.Add(new DirectionChanger(new Vector2(27.5f * GameManager.TILE_SIZE, 15.5f * GameManager.TILE_SIZE), new Vector2(-1, 0)));
             directionChangers.Add(new DirectionChanger(new Vector2(6.5f * GameManager.TILE_SIZE, 15.5f * GameManager.TILE_SIZE), new Vector2(0, -1)));
             directionChangers.Add(new DirectionChanger(new Vector2(6.5f * GameManager.TILE_SIZE, 4.5f * GameManager.TILE_SIZE), new Vector2(0, 0)));
-            enemyFactory.CreateWave(10, 0, 0);
         }
 
         public void Update()
@@ -158,6 +211,62 @@ namespace MyGame.Classes
                     Victory();
                     break;
             }
+        }
+
+        public void CreateTower()
+        {
+            //if (Jewels >= Tower.Cost)
+            Vector2 tile = Utils.GetTile(Engine.mousePos);
+
+            if (!CanPlaceTower(tile)) return;
+
+            Tower newTower = new Tower(Engine.mousePos, "assets/tower.png");
+            board[(int)tile.y, (int)tile.x] = 1;
+            board[(int)tile.y - 1, (int)tile.x] = 1;
+            board[(int)tile.y - 1, (int)tile.x + 1] = 1;
+            board[(int)tile.y, (int)tile.x + 1] = 1;
+            Engine.Debug($"Mouse en: {Engine.mousePos.x}, {(int)Engine.mousePos.y}");
+            Engine.Debug($"Mouse en Tile: {tile.y},{tile.x}");
+            PrintBoard();
+        }
+
+        public bool CanPlaceTower(Vector2 tile)
+        {
+            if (board[(int)tile.y, (int)tile.x] == 1)
+            {
+                Engine.Debug("No se puede colocar aca");
+                return false;
+            }
+            else if ((int)tile.y - 2 < 0)
+            {
+                Engine.Debug("No se puede colocar, la parte superior de la torre queda fuera del mapa");
+                return false;
+            }
+            else if ((int)tile.x + 2 < 0)
+            {
+                Engine.Debug("No se puede colocar, la parte derecha de la torre queda fuera del mapa");
+                return false;
+            }
+            else if (board[(int)tile.y - 1, (int)tile.x] == 1)
+            {
+                Engine.Debug("Torre en el Tile de arriba");
+                return false; 
+            }
+
+            else if (board[(int)tile.y - 1, (int)tile.x + 1] == 1)
+            {
+                Engine.Debug("Torre en el Tile diagonal arriba a la derecha");
+                return false; 
+            }
+
+            else if (board[(int)tile.y, (int)tile.x + 1] == 1)
+            {
+                Engine.Debug("Torre en el Tile de la derecha");
+                return false; 
+            }
+
+
+            return true;
         }
     }
 }

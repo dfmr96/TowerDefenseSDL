@@ -86,7 +86,7 @@ namespace MyGame.Classes
 
             if (timer > blinkTime)
             {
-                Engine.Debug($"{pressKey}");
+                //Engine.Debug($"{pressKey}");
                 pressKey = !pressKey;
                 timer = 0;
             }

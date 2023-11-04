@@ -28,8 +28,6 @@ namespace MyGame.Classes
                 if (Vector2.Distance(transform.position, enemy.transform.position) <= detectionRadius)
                 {
                     enemy.SetDirection(directionToChange);
-                    //GameManager.Instance.gameObjects.Remove(this);
-                    //Engine.Debug($"{transform.position.x},{transform.position.y}, {Vector2.Distance(transform.position, enemy.transform.position)}");
                 }
             }
         }

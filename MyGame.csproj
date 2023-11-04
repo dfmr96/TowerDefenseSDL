@@ -63,6 +63,7 @@
     <Compile Include="Classes\Tower.cs">
       <DependentUpon>GameObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Utils.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Font.cs" />
     <Compile Include="Core\Sound.cs" />

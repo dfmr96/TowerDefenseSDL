@@ -9,6 +9,8 @@ class Engine
 {
     static IntPtr screen;
     static int ancho, alto;
+    public static event Action OnMouseClick1;
+    public static Vector2 mousePos;
 
     public static void Initialize()
     {
@@ -159,65 +161,36 @@ class Engine
         return press;
     }
 
-    public static void MousePress()
+    public static void GetMouse()
     {
-        bool press = false;
         Sdl.SDL_PumpEvents();
         Sdl.SDL_Event m_event;
         Sdl.SDL_PollEvent(out m_event);
-
+        int x, y;
 
         if (Sdl.SDL_MOUSEMOTION == m_event.type)
         {
-            int x, y;
             Sdl.SDL_GetMouseState(out x, out y);
-            Debug($"{x},{y}");
+            //Engine.Debug($"{x},{y}");
+            mousePos = new Vector2(x, y);
         }
 
         if (Sdl.SDL_MOUSEBUTTONDOWN == m_event.type)
         {
             if (Sdl.SDL_BUTTON_LEFT == m_event.button.button)
             {
-                Debug("Left mouse button is down");
+                OnMouseClick1?.Invoke();
+                Engine.Debug("Click apretado");
             }
-            else if (Sdl.SDL_BUTTON_RIGHT == m_event.button.button)
-            {
-                Debug("'Right mouse button is down");
-            }
-            else if (Sdl.SDL_BUTTON_MIDDLE == m_event.button.button)
-            {
-                Debug("Middle mouse button is down");
-            }
+            //else if (Sdl.SDL_BUTTON_RIGHT == m_event.button.button)
+            //{
+            //    Engine.Debug("'Right mouse button is down");
+            //}
+            //else if (Sdl.SDL_BUTTON_MIDDLE == m_event.button.button)
+            //{
+            //    Engine.Debug("Middle mouse button is down");
+            //}
         }
-
-
-
-
-        /*bool press = false;
-        Sdl.SDL_PumpEvents();
-        Sdl.SDL_Event pressed;
-
-        Sdl.SDL_PollEvent(out pressed);
-
-
-        if (Sdl.SDL_MOUSEBUTTONDOWN == pressed.type)
-        {
-            if (Sdl.SDL_BUTTON_LEFT == pressed.button.button)
-            {
-                Debug("Click izquierdo clickeado");
-            }
-        }
-        */
-
-
-        /*if (Sdl.SDL_MOUSEMOTION == pressed.type)
-        {
-            int x, y;
-            Sdl.SDL_GetMouseState(out x, out y);
-            Debug($"{x},{y}");
-            //return new Vector2(x, y);
-        }*/
-        //return Vector2.Zero;
     }
 
     public static void ErrorFatal(string texto)

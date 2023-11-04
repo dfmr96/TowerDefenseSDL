@@ -6,8 +6,8 @@ namespace MyGame
     public class Bullet : GameObject
     {
         private Vector2 direction = new Vector2(-1, 0);
-        private float speed = 250;
-        private float colliderRadius = 3;
+        private float speed = 350;
+        private float colliderRadius = 5;
 
         public Bullet(Vector2 initPos, string spriteDir, Vector2 direction)
             : base(initPos, spriteDir, new Vector2(6, 6))

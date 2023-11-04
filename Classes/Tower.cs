@@ -23,17 +23,21 @@ namespace MyGame
         public static int Cost => cost;
         public List<Enemy> EnemiesInRange => enemiesInRange;
 
-        public Vector2 Tile
-        {
-            get => new Vector2((int)Math.Floor(transform.position.x / GameManager.TILE_SIZE) * GameManager.TILE_SIZE,
-                (int)Math.Floor(transform.position.y / GameManager.TILE_SIZE) * GameManager.TILE_SIZE);
-        }
+        //public Vector2 Tile
+        //{
+        //    get => new Vector2((int)Math.Floor(transform.position.x / GameManager.TILE_SIZE) * GameManager.TILE_SIZE,
+        //        (int)Math.Floor(transform.position.y / GameManager.TILE_SIZE) * GameManager.TILE_SIZE);
+        //}
 
         public Tower(Vector2 initPos, string spriteDir)
             : base(initPos, spriteDir, new Vector2(32, 64))
         {
             GameManager.Instance.IncreaseJewels(-cost);
-            bulletSpawnPos = new Vector2(Tile.x + sprite.size.x * 0.5f, Tile.y - sprite.size.y * 0.5f);
+            //bulletSpawnPos = new Vector2(Tile.x + sprite.size.x * 0.5f, Tile.y - sprite.size.y * 0.5f);
+            //Vector2 tile = Utils.GetTile(transform.position);
+            bulletSpawnPos = new Vector2(transform.position.x + sprite.size.x * 0.5f, transform.position.y - sprite.size.y * 0.5f);
+
+            
             /*position = initPos;
             sprite.root = Engine.LoadImage(spriteDir);*/
             sprite.size = new Vector2(32, 64);
@@ -88,8 +92,7 @@ namespace MyGame
 
         public override void Render()
         {
-            Engine.Draw(sprite.root, (float)Math.Floor(transform.position.x / GameManager.TILE_SIZE) * GameManager.TILE_SIZE,
-                (float)Math.Floor(transform.position.y / GameManager.TILE_SIZE) * GameManager.TILE_SIZE - (sprite.size.y / 2));
+            
             Engine.Draw(currentAnimation.Frames, (float)Math.Floor(transform.position.x / GameManager.TILE_SIZE) * GameManager.TILE_SIZE,
                 (float)Math.Floor(transform.position.y / GameManager.TILE_SIZE) * GameManager.TILE_SIZE - (sprite.size.y / 2));
         }
