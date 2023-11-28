@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MyGame.Classes
 {
@@ -15,7 +16,8 @@ namespace MyGame.Classes
         private float jewels = 25;
         private float jewelPerSecond = 0.5f;
         private float jewelCounter = 0;
-        private float enemiesRemaining = 52;
+        private float enemiesRemaining = 51;
+        private float points = 0;
         public const int TILE_SIZE = 32;
         public List<GameObject> gameObjects = new List<GameObject>();
         public List<Enemy> enemies = new List<Enemy>();
@@ -158,13 +160,11 @@ namespace MyGame.Classes
             Engine.Draw(Engine.LoadImage("assets/enemy01.png"), 1168, 80, 64, 64);
         }
 
-        public void GameOver()
+        public void EndMatch(GameState state)
         {
-            SceneManager.Instance.ChangeScene(GameState.Defeat);
-        }
-        public void Victory()
-        {
-            SceneManager.Instance.ChangeScene(GameState.Victory);
+            castle.GrantPoints();
+            SceneManager.Instance.SetPoints(points);
+            SceneManager.Instance.ChangeScene(state);
         }
 
         public void DestroyGameManager()
@@ -194,7 +194,8 @@ namespace MyGame.Classes
                     enemyFactory.CreateEnemyWave(EnemyType.Easy, 8, EnemyType.Medium, 3, EnemyType.Hard, 3);
                     break;
                 case 0:
-                    Victory();
+                    
+                    EndMatch(GameState.Victory);
                     break;
             }
         }
@@ -247,6 +248,11 @@ namespace MyGame.Classes
             }
 
             return true;
+        }
+
+        public void IncreasePoints(float points)
+        {
+            this.points += points;
         }
     }
 }

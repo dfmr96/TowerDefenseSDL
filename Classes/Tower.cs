@@ -1,4 +1,5 @@
 ﻿using MyGame.Classes;
+using MyGame.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace MyGame
 {
-    public class Tower : GameObject
+    public class Tower : GameObject, IScoreable
     {
         private Animation idleAnimation;
         private Animation currentAnimation;
@@ -31,6 +32,7 @@ namespace MyGame
             CreateAnimations();
             currentAnimation = idleAnimation;
             GameManager.Instance.towers.Add(this);
+            GrantPoints();
         }
 
         private void CreateAnimations()
@@ -104,6 +106,11 @@ namespace MyGame
         public void RemoveEnemy(Enemy enemy)
         {
             if (enemiesInRange.Contains(enemy)) enemiesInRange.Remove(enemy);
+        }
+
+        public void GrantPoints()
+        {
+            GameManager.Instance.IncreasePoints(cost);
         }
     }
 }

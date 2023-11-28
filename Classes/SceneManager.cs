@@ -28,6 +28,7 @@ namespace MyGame.Classes
         private float timer = 0;
         private bool showPressEnter = false;
         private bool showPressSpace = false;
+        private float points = 0;
         public static SceneManager Instance
         {
             get
@@ -107,10 +108,12 @@ namespace MyGame.Classes
                     break;
                 case GameState.Victory:
                     Engine.Draw(victoryBG, 0, 0);
+                    Engine.DrawText($"Points: {points}", 500, 300, 255, 255, 255, font);
                     if (showPressSpace) Engine.DrawText($"PRESS SPACE TO CONTINUE", 350, 700, 255, 255, 255, font);
                     break;
                 case GameState.Defeat:
                     Engine.Draw(defeatBG, 0, 0);
+                    Engine.DrawText($"Points: {points}", 500, 300, 255, 255, 255, font);
                     if (showPressSpace) Engine.DrawText($"PRESS SPACE TO CONTINUE", 350, 700, 255, 255, 255, font);
                     break;
             }
@@ -120,6 +123,11 @@ namespace MyGame.Classes
         public void ChangeScene(GameState gameState)
         {
             GameState = gameState;
+        }
+
+        public void SetPoints(float points)
+        {
+            this.points = points;
         }
     }
 }

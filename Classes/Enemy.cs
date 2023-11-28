@@ -4,6 +4,7 @@ using System;
 using System.Net.Configuration;
 using System.Runtime.CompilerServices;
 using System.Net;
+using MyGame.Interfaces;
 
 namespace MyGame
 {
@@ -22,12 +23,13 @@ namespace MyGame
         down = 3,
         explosion = 4
     }
-    public class Enemy : GameObject
+    public class Enemy : GameObject, IDamageable, IScoreable, IMoveable
     {
-        private List<Animation> animations = new List<Animation>(new Animation[5]);
+
+    private List<Animation> animations = new List<Animation>(new Animation[5]);
         private Animation currentAnimation;
         private EnemyColor enemyColor;
-        private int health = 3;
+        private float health = 3;
         private float damage = 0;
         private Vector2 direction;
         private float speed = 0;
@@ -36,7 +38,7 @@ namespace MyGame
         private float jewelsRewards = 3;
         public float ColliderRadius => colliderRadius;
 
-        public int Health
+        public float Health
         {
             get => health;
             private set { health = value; }
@@ -127,26 +129,7 @@ namespace MyGame
 
         public override void Update()
         {
-            if (direction == new Vector2(0, -1))
-            {
-                currentAnimation = animations[(int)EnemyAnimations.up];
-            }
-
-            if (direction == new Vector2(-1, 0))
-            {
-                currentAnimation = animations[(int)EnemyAnimations.left];
-            }
-
-            if (direction == new Vector2(0, 1))
-            {
-                currentAnimation = animations[(int)EnemyAnimations.down];
-            }
-
-            if (direction == new Vector2(1, 0))
-            {
-                currentAnimation = animations[(int)EnemyAnimations.right];
-            }
-
+            Move();
             currentAnimation.Update();
             transform.position += direction * Program.DeltaTime * speed;
 
@@ -157,13 +140,14 @@ namespace MyGame
             Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
         }
 
-        public void TakeDamage()
+        public void TakeDamage(float damage)
         {
-            Health--;
+            health -= damage;
             if (health <= 0)
             {
                 health = 0;
                 GameManager.Instance.IncreaseJewels(jewelsRewards);
+                GrantPoints();
                 DestroyEnemy();
             }
         }
@@ -183,6 +167,34 @@ namespace MyGame
             GameManager.Instance.enemies.Remove(this);
             GameManager.Instance.gameObjects.Remove(this);
             Engine.Debug("Enemigo muerto");
+        }
+
+        public void GrantPoints()
+        {
+            GameManager.Instance.IncreasePoints(health);
+        }
+
+        public void Move()
+        {
+            if (direction == new Vector2(0, -1))
+            {
+                currentAnimation = animations[(int)EnemyAnimations.up];
+            }
+
+            if (direction == new Vector2(-1, 0))
+            {
+                currentAnimation = animations[(int)EnemyAnimations.left];
+            }
+
+            if (direction == new Vector2(0, 1))
+            {
+                currentAnimation = animations[(int)EnemyAnimations.down];
+            }
+
+            if (direction == new Vector2(1, 0))
+            {
+                currentAnimation = animations[(int)EnemyAnimations.right];
+            }
         }
     }
 }

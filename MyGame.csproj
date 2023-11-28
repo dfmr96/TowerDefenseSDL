@@ -67,9 +67,12 @@
     <Compile Include="Classes\Utils.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Font.cs" />
-    <Compile Include="Core\Sound.cs" />
-    <Compile Include="Core\Transform.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Classes\Sound.cs" />
+    <Compile Include="Classes\Transform.cs" />
+    <Compile Include="Core\Program.cs" />
+    <Compile Include="Interfaces\IDamageable.cs" />
+    <Compile Include="Interfaces\IMoveable.cs" />
+    <Compile Include="Interfaces\IScoreable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structs\Sprite.cs" />
     <Compile Include="Structs\Vector2.cs" />
