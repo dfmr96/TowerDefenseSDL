@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MyGame.Classes
 {
@@ -20,8 +14,8 @@ namespace MyGame.Classes
     {
         private static SceneManager instance;
         private GameState gameState;
-        private IntPtr mainMenuBG = Engine.LoadImage("assets/menu.png");
         private Font font = new Font("assets/Fonts/antiquity-print.ttf", 24);
+        private IntPtr mainMenuBG = Engine.LoadImage("assets/menu.png");
         private IntPtr defeatBG = Engine.LoadImage("assets/defeat.png");
         private IntPtr victoryBG = Engine.LoadImage("assets/victory.png");
         private float blinkTime = 0.5f;
@@ -87,7 +81,6 @@ namespace MyGame.Classes
 
             if (timer > blinkTime)
             {
-                //Engine.Debug($"{pressKey}");
                 pressKey = !pressKey;
                 timer = 0;
             }

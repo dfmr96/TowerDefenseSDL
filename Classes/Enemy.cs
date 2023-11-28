@@ -1,10 +1,7 @@
 ﻿using MyGame.Classes;
-using System.Collections.Generic;
-using System;
-using System.Net.Configuration;
-using System.Runtime.CompilerServices;
-using System.Net;
 using MyGame.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace MyGame
 {
@@ -26,7 +23,7 @@ namespace MyGame
     public class Enemy : GameObject, IDamageable, IScoreable, IMoveable
     {
 
-    private List<Animation> animations = new List<Animation>(new Animation[5]);
+        private List<Animation> animations = new List<Animation>(new Animation[5]);
         private Animation currentAnimation;
         private EnemyColor enemyColor;
         private float health = 3;
@@ -100,7 +97,7 @@ namespace MyGame
             for (int i = 0; i < animations.Count; i++)
             {
                 EnemyAnimations currentAnim = (EnemyAnimations)i;
-                int frames = (currentAnim != EnemyAnimations.explosion) ? 4 : 8; 
+                int frames = (currentAnim != EnemyAnimations.explosion) ? 4 : 8;
                 IterateAnimation(frames, GetAnimName(currentAnim), i);
             }
         }
@@ -132,7 +129,6 @@ namespace MyGame
             Move();
             currentAnimation.Update();
             transform.position += direction * Program.DeltaTime * speed;
-
         }
 
         public override void Render()

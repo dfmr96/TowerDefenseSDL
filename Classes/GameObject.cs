@@ -1,8 +1,5 @@
 ﻿using MyGame.Classes;
 using MyGame.Core;
-using System;
-using System.ComponentModel.Design;
-using Tao.Sdl;
 
 namespace MyGame
 {
@@ -21,13 +18,11 @@ namespace MyGame
             sprite.size = spriteSize;
 
             GameManager.Instance.gameObjects.Add(this);
-
         }
 
         public GameObject()
         {
             GameManager.Instance.gameObjects.Add(this);
-
         }
 
         public abstract void Update();

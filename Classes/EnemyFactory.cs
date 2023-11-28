@@ -1,9 +1,4 @@
-﻿using MyGame.Classes;
-using System;
-using System.Linq;
-using Tao.Sdl;
-
-namespace MyGame
+﻿namespace MyGame
 {
     public enum EnemyType
     {

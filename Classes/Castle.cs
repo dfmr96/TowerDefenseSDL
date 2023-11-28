@@ -1,10 +1,4 @@
 ﻿using MyGame.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MyGame.Classes
 {
@@ -21,7 +15,6 @@ namespace MyGame.Classes
         public void TakeDamage(float damage)
         {
             health -= damage;
-            Engine.Debug($"Castillo dañado, {health}");
 
             if (health <= 0)
             {

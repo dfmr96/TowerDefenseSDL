@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace MyGame.Classes
 {
@@ -26,7 +25,7 @@ namespace MyGame.Classes
         public EnemyFactory enemyFactory = new EnemyFactory();
         public List<DirectionChanger> directionChangers = new List<DirectionChanger>();
         public Castle castle = new Castle();
-        
+
         public static GameManager Instance
         {
             get
@@ -34,7 +33,6 @@ namespace MyGame.Classes
                 if (instance == null && SceneManager.Instance.GameState == GameState.MainMenu)
                 {
                     instance = new GameManager();
-                    Engine.Debug($"Game Manager init , {SceneManager.Instance.GameState}");
                 }
                 return instance;
             }
@@ -84,7 +82,7 @@ namespace MyGame.Classes
             Engine.Debug("Board inicializado");
             CreateDirectionChangers();
             enemyFactory.CreateEnemyWave(EnemyType.Easy, 10);
-            
+
         }
 
         public void PrintBoard()
@@ -131,11 +129,6 @@ namespace MyGame.Classes
                 jewelCounter = 0;
             }
 
-            if (Engine.KeyPress(Engine.KEY_RIGHT))
-            {
-                Engine.Debug($"{gameObjects.Count}");
-            }
-
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update();
@@ -145,6 +138,8 @@ namespace MyGame.Classes
             {
                 directionChangers[i].Update();
             }
+
+            if (Engine.KeyPress(Engine.KEY_0)) bulletsPool.PrintBullets();
         }
 
         public void Render()
@@ -196,7 +191,7 @@ namespace MyGame.Classes
                     enemyFactory.CreateEnemyWave(EnemyType.Easy, 8, EnemyType.Medium, 3, EnemyType.Hard, 3);
                     break;
                 case 0:
-                    
+
                     EndMatch(GameState.Victory);
                     break;
             }
@@ -236,17 +231,17 @@ namespace MyGame.Classes
             }
             else if (board[(int)tile.y - 1, (int)tile.x] == 1)
             {
-                return false; 
+                return false;
             }
 
             else if (board[(int)tile.y - 1, (int)tile.x + 1] == 1)
             {
-                return false; 
+                return false;
             }
 
             else if (board[(int)tile.y, (int)tile.x + 1] == 1)
             {
-                return false; 
+                return false;
             }
 
             return true;

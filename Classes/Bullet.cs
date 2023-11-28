@@ -1,6 +1,5 @@
 ﻿using MyGame.Classes;
 using MyGame.Interfaces;
-using System.Diagnostics;
 
 namespace MyGame
 {
@@ -10,6 +9,8 @@ namespace MyGame
         private float speed = 350;
         private float colliderRadius = 5;
         private float damage = 1;
+        private float destroyCounter = 0;
+        private float destroyTime = 2;
         public Bullet(Vector2 initPos, string spriteDir, Vector2 direction)
             : base(initPos, spriteDir, new Vector2(6, 6))
         {
@@ -18,9 +19,28 @@ namespace MyGame
 
         public override void Update()
         {
+            CheckLifeTime();
             Move();
-
             CheckCollision();
+        }
+
+        private void CheckLifeTime()
+        {
+            destroyCounter += Program.DeltaTime;
+            if (destroyCounter >= destroyTime)
+            {
+                RemoveFromPool();
+            }
+        }
+
+        public void SetDirection(Vector2 direction)
+        {
+            this.direction = direction;
+        }
+
+        public void SetPosition(Vector2 position)
+        {
+            transform.position = position;
         }
 
         public void CheckCollision()
@@ -31,9 +51,16 @@ namespace MyGame
                 if (Vector2.Distance(transform.position, enemy.transform.position) <= colliderRadius + enemy.ColliderRadius)
                 {
                     enemy.TakeDamage(damage);
-                    GameManager.Instance.gameObjects.Remove(this);
+                    RemoveFromPool();
                 }
             }
+        }
+
+        private void RemoveFromPool()
+        {
+            destroyCounter = 0;
+            GameManager.Instance.gameObjects.Remove(this);
+            GameManager.Instance.bulletsPool.RecycleT(this);
         }
 
         public override void Render()

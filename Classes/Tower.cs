@@ -2,8 +2,6 @@
 using MyGame.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace MyGame
 {
@@ -58,10 +56,6 @@ namespace MyGame
                 CreateBullet();
                 fireRateCounter = 0;
             }
-            if (Engine.KeyPress(Engine.KEY_1))
-            {
-                Engine.Debug($"{enemiesInRange.Count}");
-            }
         }
 
         public override void Render()
@@ -73,13 +67,18 @@ namespace MyGame
         private void CreateBullet()
         {
             Vector2 direction = Vector2.Normalize(target.SpriteCenter - bulletSpawnPos);
-            Bullet newBullet = GameManager.Instance.bulletsPool.GetNewT(new Bullet(bulletSpawnPos, "assets/bullet_01.png", direction));
-            if(newBullet != null)
+
+            Bullet tempBullet = new Bullet(bulletSpawnPos, "assets/bullet_01.png", direction);
+            GameManager.Instance.gameObjects.Remove(tempBullet);
+            Bullet newBullet = GameManager.Instance.bulletsPool.GetNewT(tempBullet);
+            if (newBullet != null)
             {
-              GameManager.Instance.gameObjects.Add(newBullet);
-              newBullet = new Bullet(bulletSpawnPos, "assets/bullet_01.png", direction);
-              GameManager.Instance.bulletsPool.PrintBullets();
-            }         
+                GameManager.Instance.gameObjects.Add(newBullet);
+
+                newBullet.SetDirection(direction);
+                newBullet.SetPosition(bulletSpawnPos);
+                GameManager.Instance.bulletsPool.PrintBullets();
+            }
         }
 
         private void CheckEnemiesAround()

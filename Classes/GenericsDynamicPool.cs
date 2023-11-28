@@ -14,16 +14,18 @@ namespace MyGame.Classes
 
         public T GetNewT(T tBasic)
         {
-            T newT = null;
+            T newT = null; //Objeto nuevo nulo
 
-            if (notActiveList.Count > 0)
+            if (notActiveList.Count > 0) // Si hay alguno inactivo
             {
-                newT = notActiveList[0];
-                notActiveList.RemoveAt(0);
+                newT = notActiveList[0]; //El objeto nuevo es el primer inactivo
+                notActiveList.RemoveAt(0); //El objeto nuevo, es removido del primer peusto de la lista
+                activeList.Add(newT);
             }
             else
             {
                 newT = tBasic;
+                activeList.Add(newT);
             }
             return newT;
         }

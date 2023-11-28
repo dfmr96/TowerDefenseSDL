@@ -16,11 +16,9 @@ namespace MyGame
             while (true)
             {
                 UpdateDeltaTime();
-                int fps = (int)Math.Floor(1 / DeltaTime);
                 Engine.GetMouse();
                 Update();
                 Render();
-                //Engine.Debug($"{fps}, {DeltaTime}");
             }
         }
 

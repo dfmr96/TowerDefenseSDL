@@ -10,9 +10,9 @@ namespace Test2
         [TestMethod]
         public void TestEnemyTakeDamage()
         {
-            Enemy newEnemy = new Enemy(EnemyColor.Red);
+            Enemy newEnemy = new Enemy(new Vector2(10, 10), EnemyColor.Red, 5, 20, 5, 1);
 
-            newEnemy.TakeDamage();
+            newEnemy.TakeDamage(1);
 
             Assert.AreNotEqual(newEnemy.Health, 5);
         }
