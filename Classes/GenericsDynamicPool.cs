@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,12 @@ namespace MyGame.Classes
         {
             activeList.Remove(tParameter);
             notActiveList.Add(tParameter);
+        }
+
+        public void PrintBullets()
+        {
+            Engine.Debug("Activadas " + activeList.Count);
+            Engine.Debug("Desactivadas " + notActiveList.Count);
         }
     }
 }

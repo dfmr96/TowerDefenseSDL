@@ -30,11 +30,12 @@ namespace MyGame
                 if (Vector2.Distance(transform.position, enemy.transform.position) <= colliderRadius + enemy.ColliderRadius)
                 {
                     enemy.TakeDamage();
-                    //GameManager.Instance.gameObjects.Remove(this);
+                   
                     for(int j = 0; j < GameManager.Instance.bulletsPool.activeList.Count; j++)
                     {
                         GameManager.Instance.bulletsPool.RecycleT(GameManager.Instance.bulletsPool.activeList[j]);
                     }
+                    GameManager.Instance.gameObjects.Remove(this);
                 }
             }
         }
