@@ -71,7 +71,12 @@ namespace MyGame
         private void CreateBullet()
         {
             Vector2 direction = Vector2.Normalize(target.SpriteCenter - bulletSpawnPos);
-            Bullet newBullet = new Bullet(bulletSpawnPos, "assets/bullet_01.png", direction);
+            Bullet newBullet = GameManager.Instance.bulletsPool.GetNewT(new Bullet(bulletSpawnPos, "assets/bullet_01.png", direction));
+            if(newBullet == null)
+            {
+              newBullet = new Bullet(bulletSpawnPos, "assets/bullet_01.png", direction);
+            }
+            
         }
 
         private void CheckEnemiesAround()
