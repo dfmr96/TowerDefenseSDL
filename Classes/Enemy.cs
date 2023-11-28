@@ -25,11 +25,6 @@ namespace MyGame
     public class Enemy : GameObject
     {
         private List<Animation> animations = new List<Animation>(new Animation[5]);
-        private Animation rightAnimation;
-        private Animation leftAnimation;
-        private Animation upAnimation;
-        private Animation downAnimation;
-        private Animation explosionAnimation;
         private Animation currentAnimation;
         private EnemyColor enemyColor;
         private int health = 3;
@@ -59,7 +54,7 @@ namespace MyGame
             this.speed = speed;
             this.damage = damage;
 
-            currentAnimation = animations[2];
+            currentAnimation = animations[(int)EnemyAnimations.left];
 
             GameManager.Instance.enemies.Add(this);
         }
@@ -152,19 +147,14 @@ namespace MyGame
                 currentAnimation = animations[(int)EnemyAnimations.right];
             }
 
-            if (enemyColor == EnemyColor.Red) currentAnimation.Update();
-            if (enemyColor == EnemyColor.Yellow) currentAnimation.Update();
-            if (enemyColor == EnemyColor.Cyan) currentAnimation.Update();
+            currentAnimation.Update();
             transform.position += direction * Program.DeltaTime * speed;
 
         }
 
         public override void Render()
         {
-            Engine.Draw(sprite.root, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
-            if (enemyColor == EnemyColor.Red) Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
-            if (enemyColor == EnemyColor.Yellow) Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
-            if (enemyColor == EnemyColor.Cyan) Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
+            Engine.Draw(currentAnimation.Frames, transform.position.x - sprite.size.x / 2, transform.position.y - sprite.size.y / 2);
         }
 
         public void TakeDamage()
