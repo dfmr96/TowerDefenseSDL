@@ -22,9 +22,11 @@ namespace MyGame.Classes
         public List<GameObject> gameObjects = new List<GameObject>();
         public List<Enemy> enemies = new List<Enemy>();
         public List<Tower> towers = new List<Tower>();
+        public GenericsDynamicPool<Bullet> bulletsPool = new GenericsDynamicPool<Bullet>();
         public EnemyFactory enemyFactory = new EnemyFactory();
         public List<DirectionChanger> directionChangers = new List<DirectionChanger>();
         public Castle castle = new Castle();
+        
         public static GameManager Instance
         {
             get
@@ -82,7 +84,7 @@ namespace MyGame.Classes
             Engine.Debug("Board inicializado");
             CreateDirectionChangers();
             enemyFactory.CreateEnemyWave(EnemyType.Easy, 10);
-
+            
         }
 
         public void PrintBoard()
