@@ -37,7 +37,7 @@ namespace MyGame
 
         public Enemy(EnemyColor color)
         {
-            enemyColor = color;
+           // enemyColor = color;
             base.transform.position = new Vector2(-GameManager.TILE_SIZE, 18.5f * GameManager.TILE_SIZE);
             direction = new Vector2(1, 0);
             this.castle = GameManager.Instance.castle;
@@ -73,6 +73,25 @@ namespace MyGame
                     break;
             }
 
+
+            GameManager.Instance.enemies.Add(this);
+        }
+
+        public Enemy(Vector2 tilePos, EnemyColor color, int jewelsRewards, int health, int speed, int damage)
+        {
+            // enemyColor = color;
+            base.transform.position = new Vector2(-GameManager.TILE_SIZE * tilePos.x, GameManager.TILE_SIZE * tilePos.y);
+            direction = new Vector2(1, 0);
+            this.castle = GameManager.Instance.castle;
+
+            enemyColor = color;
+            CreateAnimations();
+            this.jewelsRewards = jewelsRewards;
+            this.health = health;
+            this.speed = speed;
+            this.damage = damage;
+
+            currentAnimation = rightAnimation;
 
             GameManager.Instance.enemies.Add(this);
         }

@@ -5,70 +5,71 @@ using Tao.Sdl;
 
 namespace MyGame
 {
+    public enum EnemyType
+    {
+        Easy = 0,
+        Medium = 1,
+        Hard = 2,
+    }
     public class EnemyFactory
     {
-        private float spawnRate = 5f;
-        private float spawnRateCounter = 0;
 
-        public void Update()
+        public void CreateEnemyWave(EnemyType enemy1, int enemy1Quantity)
         {
-            spawnRateCounter += Program.DeltaTime;
+            IterateEnemy(enemy1, enemy1Quantity, new Vector2(1, 18.5f));
+        }
 
-            if (Engine.KeyPress(Engine.KEY_0) && spawnRateCounter >= 1 / spawnRate)
-            {
-                CreateWave(5, 3, 0);
+        public void CreateEnemyWave(EnemyType enemy1, int enemy1Quantity, EnemyType enemy2, int enemy2Quantity)
+        {
+            IterateEnemy(enemy1, enemy1Quantity, new Vector2(1, 18.5f));
+            IterateEnemy(enemy2, enemy2Quantity, new Vector2(1, 18.5f));
+        }
+        public void CreateEnemyWave(EnemyType enemy1, int enemy1Quantity, EnemyType enemy2, int enemy2Quantity, EnemyType enemy3, int enemy3Quantity)
+        {
+            IterateEnemy(enemy1, enemy1Quantity, new Vector2(1, 18.5f));
+            IterateEnemy(enemy2, enemy2Quantity, new Vector2(1, 18.5f));
+            IterateEnemy(enemy3, enemy3Quantity, new Vector2(1, 18.5f));
+        }
 
-                Engine.Debug($"{GameManager.Instance.enemies.Count()}");
-            }
-            if (Engine.KeyPress(Engine.KEY_9) && spawnRateCounter >= 1 / spawnRate)
+        private void IterateEnemy(EnemyType enemy1, int enemy1Quantity, Vector2 tilePos)
+        {
+            for (int i = 0; i < enemy1Quantity; i++)
             {
-                Enemy newEnemy = new Enemy(EnemyColor.Yellow);
-                spawnRateCounter = 0;
-                Engine.Debug($"{GameManager.Instance.enemies.Count()}");
+                Enemy newEnemy = CreateEnemy(enemy1, tilePos);
+                SetEnemyOffset(enemy1, newEnemy, i);
             }
         }
 
-        public EnemyFactory()
+        public void SetEnemyOffset(EnemyType enemyType, Enemy newEnemy, int posInQeue)
         {
-            spawnRate = 1;
-            spawnRateCounter = 0;
-            Engine.Debug("Factory creada");
-        }
-
-        public void CreateWave(int red, int yellow, int cyan)
-        {
-            for (int i = 0; i < red; i++)
+            switch (enemyType)
             {
-                Enemy newEnemy = new Enemy(EnemyColor.Red);
-                newEnemy.transform.position.x = (-100 * i) - 50;
-                spawnRateCounter = 0;
+                case EnemyType.Easy:
+                    newEnemy.transform.position.x = (-100 * posInQeue) - 50;
+                    break;
+                case EnemyType.Medium:
+                    newEnemy.transform.position.x = (-150 * posInQeue) - 50;
+                    break;
+                case EnemyType.Hard:
+                    newEnemy.transform.position.x = (-300 * posInQeue) - 50;
+                    break;
+            }
+        }
+        public Enemy CreateEnemy(EnemyType enemy, Vector2 tilePos)
+        {
+            switch (enemy)
+            {
+                case EnemyType.Easy:
+                    return new Enemy(tilePos, EnemyColor.Red, 2, 5, 85, 5);
 
-                Engine.Debug("Iteracion");
+                case EnemyType.Medium:
+                    return new Enemy(tilePos, EnemyColor.Yellow, 5, 24, 55, 10);
+
+                case EnemyType.Hard:
+                    return new Enemy(tilePos, EnemyColor.Cyan, 10, 48, 40, 15);
             }
 
-            for (int i = 0; i < yellow; i++)
-            {
-                Enemy newEnemy = new Enemy(EnemyColor.Yellow);
-                newEnemy.transform.position.x = (-150 * i) - 50;
-            }
-
-            for (int i = 0; i < cyan; i++)
-            {
-                Enemy newEnemy = new Enemy(EnemyColor.Cyan);
-                newEnemy.transform.position.x = (-300 * i) - 50;
-            }
-
-        }
-        public void SpawnEnemy()
-        {
-            Enemy newEnemy = new Enemy(EnemyColor.Red);
-
-        }
-        private int callback(int interval)
-        {
-            Enemy newEnemy = new Enemy(EnemyColor.Red);
-            Engine.Debug("Enemigo Creado");
-            return 0;
+            return null;
         }
     }
 }

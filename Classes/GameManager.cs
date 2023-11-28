@@ -79,7 +79,8 @@ namespace MyGame.Classes
             PrintBoard();
             Engine.Debug("Board inicializado");
             CreateDirectionChangers();
-            enemyFactory.CreateWave(10, 0, 0);
+            //enemyFactory.CreateWave(10, 0, 0);
+            enemyFactory.CreateEnemyWave(EnemyType.Easy, 10);
 
         }
 
@@ -131,8 +132,6 @@ namespace MyGame.Classes
             {
                 Engine.Debug($"{gameObjects.Count}");
             }
-
-            enemyFactory.Update();
 
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -196,16 +195,20 @@ namespace MyGame.Classes
             switch (enemiesRemaining)
             {
                 case 45:
-                    enemyFactory.CreateWave(5, 1, 0);
+                    //enemyFactory.CreateWave(5, 1, 0);
+                    enemyFactory.CreateEnemyWave(EnemyType.Easy, 5, EnemyType.Medium, 1);
                     break;
                 case 37:
-                    enemyFactory.CreateWave(5, 3, 0);
+                    //enemyFactory.CreateWave(5, 3, 0);
+                    enemyFactory.CreateEnemyWave(EnemyType.Easy, 5, EnemyType.Medium, 3);
                     break;
                 case 29:
-                    enemyFactory.CreateWave(9, 4, 1);
+                    //enemyFactory.CreateWave(9, 4, 1);
+                    enemyFactory.CreateEnemyWave(EnemyType.Easy, 9, EnemyType.Medium, 4, EnemyType.Hard, 1);
                     break;
                 case 17:
-                    enemyFactory.CreateWave(8, 3, 3);
+                    //enemyFactory.CreateWave(8, 3, 3);
+                    enemyFactory.CreateEnemyWave(EnemyType.Easy, 8, EnemyType.Medium, 3, EnemyType.Hard, 3);
                     break;
                 case 0:
                     Victory();
