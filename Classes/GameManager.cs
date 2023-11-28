@@ -9,9 +9,9 @@ namespace MyGame.Classes
         public const int ROWS = 24;
         public const int COLUMNS = 40;
         private int[,] board;
-        private IntPtr background = Engine.LoadImage("assets/map.png");
-        private Font healthFont = new Font("assets/Fonts/antiquity-print.ttf", 36);
-        private IntPtr jewelUI = Engine.LoadImage("assets/jewel.png");
+        //private IntPtr background = Engine.LoadImage("assets/map.png");
+        //private Font healthFont = new Font("assets/Fonts/antiquity-print.ttf", 36);
+        //private IntPtr jewelUI = Engine.LoadImage("assets/jewel.png");
         private float jewels = 25;
         private float jewelPerSecond = 0.5f;
         private float jewelCounter = 0;
@@ -147,17 +147,17 @@ namespace MyGame.Classes
 
         public void Render()
         {
-            Engine.Draw(background, 0, 0);
+            //Engine.Draw(background, 0, 0);
 
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Render();
             }
-            Engine.DrawText($"{castle.Health}/100", 142, -5, 255, 255, 255, healthFont);
-            Engine.DrawText($" = {jewels}", 1180, 16, 255, 255, 255, healthFont);
-            Engine.DrawText($" = {EnemiesRemaining}", 1180, 48, 255, 255, 255, healthFont);
-            Engine.Draw(jewelUI, 1168, 24, 64, 64);
-            Engine.Draw(Engine.LoadImage("assets/enemy01.png"), 1168, 80, 64, 64);
+            //Engine.DrawText($"{castle.Health}/100", 142, -5, 255, 255, 255, healthFont);
+            //Engine.DrawText($" = {jewels}", 1180, 16, 255, 255, 255, healthFont);
+            //Engine.DrawText($" = {EnemiesRemaining}", 1180, 48, 255, 255, 255, healthFont);
+            //Engine.Draw(jewelUI, 1168, 24, 64, 64);
+            //Engine.Draw(Engine.LoadImage("assets/enemy01.png"), 1168, 80, 64, 64);
         }
 
         public void GameOver()
@@ -215,19 +215,21 @@ namespace MyGame.Classes
 
         public void CreateTower()
         {
-            //if (Jewels >= Tower.Cost)
-            Vector2 tile = Utils.GetTile(Engine.mousePos);
+            if (Jewels >= Tower.Cost)
+            {
+                Vector2 tile = Utils.GetTile(Engine.mousePos);
 
-            if (!CanPlaceTower(tile)) return;
+                if (!CanPlaceTower(tile)) return;
 
-            Tower newTower = new Tower(Engine.mousePos, "assets/tower.png");
-            board[(int)tile.y, (int)tile.x] = 1;
-            board[(int)tile.y - 1, (int)tile.x] = 1;
-            board[(int)tile.y - 1, (int)tile.x + 1] = 1;
-            board[(int)tile.y, (int)tile.x + 1] = 1;
-            Engine.Debug($"Mouse en: {Engine.mousePos.x}, {(int)Engine.mousePos.y}");
-            Engine.Debug($"Mouse en Tile: {tile.y},{tile.x}");
-            PrintBoard();
+                Tower newTower = new Tower(Engine.mousePos, "assets/tower.png");
+                board[(int)tile.y, (int)tile.x] = 1;
+                board[(int)tile.y - 1, (int)tile.x] = 1;
+                board[(int)tile.y - 1, (int)tile.x + 1] = 1;
+                board[(int)tile.y, (int)tile.x + 1] = 1;
+                Engine.Debug($"Mouse en: {Engine.mousePos.x}, {(int)Engine.mousePos.y}");
+                Engine.Debug($"Mouse en Tile: {tile.y},{tile.x}");
+                PrintBoard();
+            }
         }
 
         public bool CanPlaceTower(Vector2 tile)
