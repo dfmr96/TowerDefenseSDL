@@ -59,6 +59,7 @@
     <Compile Include="Classes\EnemyFactory.cs" />
     <Compile Include="Classes\GameManager.cs" />
     <Compile Include="Classes\GameObject.cs" />
+    <Compile Include="Classes\GenericsDynamicPool.cs" />
     <Compile Include="Classes\SceneManager.cs" />
     <Compile Include="Classes\Tower.cs">
       <DependentUpon>GameObject.cs</DependentUpon>

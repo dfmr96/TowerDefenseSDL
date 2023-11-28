@@ -8,7 +8,7 @@ namespace Test2
     public class UnitTest2
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestEnemyTakeDamage()
         {
             Enemy newEnemy = new Enemy(EnemyColor.Red);
 

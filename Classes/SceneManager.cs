@@ -20,10 +20,10 @@ namespace MyGame.Classes
     {
         private static SceneManager instance;
         private GameState gameState;
-        //private IntPtr mainMenuBG = Engine.LoadImage("assets/menu.png");
-        //private Font font = new Font("assets/Fonts/antiquity-print.ttf", 24);
-        //private IntPtr defeatBG = Engine.LoadImage("assets/defeat.png");
-        //private IntPtr victoryBG = Engine.LoadImage("assets/victory.png");
+        private IntPtr mainMenuBG = Engine.LoadImage("assets/menu.png");
+        private Font font = new Font("assets/Fonts/antiquity-print.ttf", 24);
+        private IntPtr defeatBG = Engine.LoadImage("assets/defeat.png");
+        private IntPtr victoryBG = Engine.LoadImage("assets/victory.png");
         private float blinkTime = 0.5f;
         private float timer = 0;
         private bool showPressEnter = false;
@@ -99,22 +99,22 @@ namespace MyGame.Classes
                 case GameState.Logo:
                     break;
                 case GameState.MainMenu:
-                    //Engine.Draw(mainMenuBG, 0, 0);
-                    //if (showPressEnter) Engine.DrawText($"PRESS ENTER", 550, 350, 0, 0, 0, font);
+                    Engine.Draw(mainMenuBG, 0, 0);
+                    if (showPressEnter) Engine.DrawText($"PRESS ENTER", 550, 350, 0, 0, 0, font);
                     break;
                 case GameState.GamePlay:
                     GameManager.Instance.Render();
                     break;
                 case GameState.Victory:
-                    //Engine.Draw(victoryBG, 0, 0);
-                    //if (showPressSpace) Engine.DrawText($"PRESS SPACE TO CONTINUE", 350, 700, 255, 255, 255, font);
+                    Engine.Draw(victoryBG, 0, 0);
+                    if (showPressSpace) Engine.DrawText($"PRESS SPACE TO CONTINUE", 350, 700, 255, 255, 255, font);
                     break;
                 case GameState.Defeat:
-                    //Engine.Draw(defeatBG, 0, 0);
-                    //if (showPressSpace) Engine.DrawText($"PRESS SPACE TO CONTINUE", 350, 700, 255, 255, 255, font);
+                    Engine.Draw(defeatBG, 0, 0);
+                    if (showPressSpace) Engine.DrawText($"PRESS SPACE TO CONTINUE", 350, 700, 255, 255, 255, font);
                     break;
             }
-            //Engine.DrawText($"{GameState}", 1200, 720, 255, 255, 255, font);
+            Engine.DrawText($"{GameState}", 1200, 720, 255, 255, 255, font);
         }
 
         public void ChangeScene(GameState gameState)

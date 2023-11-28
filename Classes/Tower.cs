@@ -9,7 +9,6 @@ namespace MyGame
     public class Tower : GameObject
     {
         private Animation idleAnimation;
-        private Animation upgradeAnimation;
         private Animation currentAnimation;
         private float fireRate = 1;
         private float fireRateCounter = 0;
@@ -57,13 +56,6 @@ namespace MyGame
                 frames.Add(frame);
             }
             idleAnimation = new Animation("idle", frames, 0.2f, true);
-
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    IntPtr frame = Engine.LoadImage($"assets/towerAnimations/upgrade/{i}.png");
-            //    frames.Add(frame);
-            //}
-            //upgradeAnimation = new Animation("upgrade", frames, 0.5f, true);
         }
 
         public override void Update()
