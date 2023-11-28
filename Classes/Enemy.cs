@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System;
 using System.Net.Configuration;
+using System.Runtime.CompilerServices;
+using System.Net;
 
 namespace MyGame
 {
@@ -11,8 +13,18 @@ namespace MyGame
         Yellow,
         Cyan
     }
+
+    public enum EnemyAnimations
+    {
+        left = 0,
+        up = 1,
+        right = 2,
+        down = 3,
+        explosion = 4
+    }
     public class Enemy : GameObject
     {
+        private List<Animation> animations = new List<Animation>(new Animation[5]);
         private Animation rightAnimation;
         private Animation leftAnimation;
         private Animation upAnimation;
@@ -35,55 +47,11 @@ namespace MyGame
             private set { health = value; }
         }
 
-        public Enemy(EnemyColor color)
-        {
-           // enemyColor = color;
-            base.transform.position = new Vector2(-GameManager.TILE_SIZE, 18.5f * GameManager.TILE_SIZE);
-            direction = new Vector2(1, 0);
-            this.castle = GameManager.Instance.castle;
-
-            switch (enemyColor)
-            {
-                case EnemyColor.Red:
-                    CreateAnimations();
-                    jewelsRewards = 2;
-                    health = 5;
-                    speed = 85;//85;
-                    damage = 5;
-                    //base.sprite.root = Engine.LoadImage("assets/enemy01.png");
-                    currentAnimation = rightAnimation;
-                    break;
-                case EnemyColor.Yellow:
-                    CreateAnimations();
-                    jewelsRewards = 5;
-                    health = 24;
-                    speed = 55;
-                    damage = 10;
-                    //base.sprite.root = Engine.LoadImage("assets/enemy02.png");
-                    currentAnimation = rightAnimation;
-                    break;
-                case EnemyColor.Cyan:
-                    CreateAnimations();
-                    jewelsRewards = 10;
-                    health = 48;
-                    speed = 40;
-                    damage = 15;
-                    //base.sprite.root = Engine.LoadImage("assets/enemy03.png");
-                    currentAnimation = rightAnimation;
-                    break;
-            }
-
-
-            GameManager.Instance.enemies.Add(this);
-        }
-
         public Enemy(Vector2 tilePos, EnemyColor color, int jewelsRewards, int health, int speed, int damage)
         {
-            // enemyColor = color;
             base.transform.position = new Vector2(-GameManager.TILE_SIZE * tilePos.x, GameManager.TILE_SIZE * tilePos.y);
             direction = new Vector2(1, 0);
             this.castle = GameManager.Instance.castle;
-
             enemyColor = color;
             CreateAnimations();
             this.jewelsRewards = jewelsRewards;
@@ -91,7 +59,7 @@ namespace MyGame
             this.speed = speed;
             this.damage = damage;
 
-            currentAnimation = rightAnimation;
+            currentAnimation = animations[2];
 
             GameManager.Instance.enemies.Add(this);
         }
@@ -111,52 +79,44 @@ namespace MyGame
             }
         }
 
+        private String GetAnimName(EnemyAnimations animID)
+        {
+            switch (animID)
+            {
+                case EnemyAnimations.left:
+                    return "left";
+                case EnemyAnimations.up:
+                    return "up";
+                case EnemyAnimations.right:
+                    return "right";
+                case EnemyAnimations.down:
+                    return "down";
+                case EnemyAnimations.explosion:
+                    return "explosion";
+            }
+
+            return null;
+        }
+
         private void CreateAnimations()
         {
-            List<IntPtr> rightFrames = new List<IntPtr>();
-
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < animations.Count; i++)
             {
-                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/right/{GetFrameRoot(enemyColor)}/{i}.png");
-                rightFrames.Add(frame);
+                EnemyAnimations currentAnim = (EnemyAnimations)i;
+                int frames = (currentAnim != EnemyAnimations.explosion) ? 4 : 8; 
+                IterateAnimation(frames, GetAnimName(currentAnim), i);
             }
-            rightAnimation = new Animation("right", rightFrames, 0.2f, true);
+        }
 
-            List<IntPtr> upFrames = new List<IntPtr>();
-
-            for (int i = 0; i < 4; i++)
+        private void IterateAnimation(int framesCount, string animationName, int animationID)
+        {
+            List<IntPtr> frames = new List<IntPtr>(new IntPtr[framesCount]);
+            for (int i = 0; i < framesCount; i++)
             {
-                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/up/{GetFrameRoot(enemyColor)}/{i}.png");
-                upFrames.Add(frame);
+                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/{animationName}/{GetFrameRoot(enemyColor)}/{i}.png");
+                frames[i] = frame;
             }
-            upAnimation = new Animation("up", upFrames, 0.2f, true);
-
-            List<IntPtr> leftFrames = new List<IntPtr>();
-
-            for (int i = 0; i < 4; i++)
-            {
-                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/left/{GetFrameRoot(enemyColor)}/{i}.png");
-                leftFrames.Add(frame);
-            }
-            leftAnimation = new Animation("left", leftFrames, 0.2f, true);
-
-            List<IntPtr> downFrames = new List<IntPtr>();
-
-            for (int i = 0; i < 4; i++)
-            {
-                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/down/{GetFrameRoot(enemyColor)}/{i}.png");
-                downFrames.Add(frame);
-            }
-            downAnimation = new Animation("down", downFrames, 0.2f, true);
-
-            List<IntPtr> explosionFrames = new List<IntPtr>();
-
-            for (int i = 0; i < 4; i++)
-            {
-                IntPtr frame = Engine.LoadImage($"assets/enemyAnimations/explosion/{GetFrameRoot(enemyColor)}/{i}.png");
-                explosionFrames.Add(frame);
-            }
-            explosionAnimation = new Animation("explosion", explosionFrames, 0.2f, false);
+            animations[animationID] = new Animation(animationName, frames, 0.2f, true);
         }
 
         public void SetDirection(Vector2 directionToChange)
@@ -174,22 +134,22 @@ namespace MyGame
         {
             if (direction == new Vector2(0, -1))
             {
-                currentAnimation = upAnimation;
+                currentAnimation = animations[(int)EnemyAnimations.up];
             }
 
             if (direction == new Vector2(-1, 0))
             {
-                currentAnimation = leftAnimation;
+                currentAnimation = animations[(int)EnemyAnimations.left];
             }
 
             if (direction == new Vector2(0, 1))
             {
-                currentAnimation = downAnimation;
+                currentAnimation = animations[(int)EnemyAnimations.down];
             }
 
-            if (direction == new Vector2(0, 0))
+            if (direction == new Vector2(1, 0))
             {
-                currentAnimation = explosionAnimation;
+                currentAnimation = animations[(int)EnemyAnimations.right];
             }
 
             if (enemyColor == EnemyColor.Red) currentAnimation.Update();
@@ -216,8 +176,6 @@ namespace MyGame
                 GameManager.Instance.IncreaseJewels(jewelsRewards);
                 DestroyEnemy();
             }
-
-            Engine.Debug("Enemigo herido");
         }
 
         private void DestroyEnemy()
@@ -226,7 +184,6 @@ namespace MyGame
 
             GameManager.Instance.EnemiesRemaining--;
             GameManager.Instance.CheckEnemies();
-            Engine.Debug($"{GameManager.Instance.EnemiesRemaining}");
             for (int i = 0; i < GameManager.Instance.towers.Count; i++)
             {
                 if (GameManager.Instance.towers[i].Target == this) GameManager.Instance.towers[i].UnTarget();

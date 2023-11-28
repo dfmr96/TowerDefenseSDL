@@ -15,7 +15,7 @@ namespace MyGame.Classes
         private float jewels = 25;
         private float jewelPerSecond = 0.5f;
         private float jewelCounter = 0;
-        private float enemiesRemaining = 51;
+        private float enemiesRemaining = 52;
         public const int TILE_SIZE = 32;
         public List<GameObject> gameObjects = new List<GameObject>();
         public List<Enemy> enemies = new List<Enemy>();
@@ -79,7 +79,6 @@ namespace MyGame.Classes
             PrintBoard();
             Engine.Debug("Board inicializado");
             CreateDirectionChangers();
-            //enemyFactory.CreateWave(10, 0, 0);
             enemyFactory.CreateEnemyWave(EnemyType.Easy, 10);
 
         }
@@ -161,28 +160,16 @@ namespace MyGame.Classes
 
         public void GameOver()
         {
-            //ClearAllList();
-            //DestroyGameManager();
             SceneManager.Instance.ChangeScene(GameState.Defeat);
-            //SceneManager.Instance.GameState = GameState.Defeat;
         }
         public void Victory()
         {
             SceneManager.Instance.ChangeScene(GameState.Victory);
-            //SceneManager.Instance.GameState = GameState.Victory;
         }
 
         public void DestroyGameManager()
         {
             instance = null;
-        }
-
-        private void ClearAllList()
-        {
-            gameObjects.Clear();
-            enemies.Clear();
-            towers.Clear();
-            directionChangers.Clear();
         }
 
         public void IncreaseJewels(float amount)
@@ -195,19 +182,15 @@ namespace MyGame.Classes
             switch (enemiesRemaining)
             {
                 case 45:
-                    //enemyFactory.CreateWave(5, 1, 0);
                     enemyFactory.CreateEnemyWave(EnemyType.Easy, 5, EnemyType.Medium, 1);
                     break;
                 case 37:
-                    //enemyFactory.CreateWave(5, 3, 0);
                     enemyFactory.CreateEnemyWave(EnemyType.Easy, 5, EnemyType.Medium, 3);
                     break;
                 case 29:
-                    //enemyFactory.CreateWave(9, 4, 1);
                     enemyFactory.CreateEnemyWave(EnemyType.Easy, 9, EnemyType.Medium, 4, EnemyType.Hard, 1);
                     break;
                 case 17:
-                    //enemyFactory.CreateWave(8, 3, 3);
                     enemyFactory.CreateEnemyWave(EnemyType.Easy, 8, EnemyType.Medium, 3, EnemyType.Hard, 3);
                     break;
                 case 0:
@@ -229,8 +212,7 @@ namespace MyGame.Classes
                 board[(int)tile.y - 1, (int)tile.x] = 1;
                 board[(int)tile.y - 1, (int)tile.x + 1] = 1;
                 board[(int)tile.y, (int)tile.x + 1] = 1;
-                Engine.Debug($"Mouse en: {Engine.mousePos.x}, {(int)Engine.mousePos.y}");
-                Engine.Debug($"Mouse en Tile: {tile.y},{tile.x}");
+
                 PrintBoard();
             }
         }
@@ -239,37 +221,30 @@ namespace MyGame.Classes
         {
             if (board[(int)tile.y, (int)tile.x] == 1)
             {
-                Engine.Debug("No se puede colocar aca");
                 return false;
             }
             else if ((int)tile.y - 2 < 0)
             {
-                Engine.Debug("No se puede colocar, la parte superior de la torre queda fuera del mapa");
                 return false;
             }
             else if ((int)tile.x + 2 < 0)
             {
-                Engine.Debug("No se puede colocar, la parte derecha de la torre queda fuera del mapa");
                 return false;
             }
             else if (board[(int)tile.y - 1, (int)tile.x] == 1)
             {
-                Engine.Debug("Torre en el Tile de arriba");
                 return false; 
             }
 
             else if (board[(int)tile.y - 1, (int)tile.x + 1] == 1)
             {
-                Engine.Debug("Torre en el Tile diagonal arriba a la derecha");
                 return false; 
             }
 
             else if (board[(int)tile.y, (int)tile.x + 1] == 1)
             {
-                Engine.Debug("Torre en el Tile de la derecha");
                 return false; 
             }
-
 
             return true;
         }

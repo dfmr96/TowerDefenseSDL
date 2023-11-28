@@ -22,19 +22,15 @@ namespace MyGame
 
             GameManager.Instance.gameObjects.Add(this);
 
-            Engine.Debug("GO creado");
         }
 
         public GameObject()
         {
             GameManager.Instance.gameObjects.Add(this);
-            Engine.Debug("GO creado");
+
         }
 
-        public virtual void Update()
-        {
-            ///
-        }
+        public abstract void Update();
 
         public virtual void Render()
         {

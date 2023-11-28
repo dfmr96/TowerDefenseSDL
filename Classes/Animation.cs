@@ -14,9 +14,6 @@ namespace MyGame.Classes
         private float speed = 0.5f;
         private float currentAnimationTime = 0;
         private bool isLoopEnabled;
-
-        public int FramesCount => frames.Count;
-        public int CurrentAnimationFrame => currentFrameIndex;
         public IntPtr Frames => frames[currentFrameIndex];
 
         public Animation(string name, List<IntPtr> frames, float speed, bool isLoopEnabled)

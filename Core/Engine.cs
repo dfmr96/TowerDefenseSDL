@@ -171,7 +171,6 @@ class Engine
         if (Sdl.SDL_MOUSEMOTION == m_event.type)
         {
             Sdl.SDL_GetMouseState(out x, out y);
-            //Engine.Debug($"{x},{y}");
             mousePos = new Vector2(x, y);
         }
 
@@ -182,14 +181,6 @@ class Engine
                 OnMouseClick1?.Invoke();
                 Engine.Debug("Click apretado");
             }
-            //else if (Sdl.SDL_BUTTON_RIGHT == m_event.button.button)
-            //{
-            //    Engine.Debug("'Right mouse button is down");
-            //}
-            //else if (Sdl.SDL_BUTTON_MIDDLE == m_event.button.button)
-            //{
-            //    Engine.Debug("Middle mouse button is down");
-            //}
         }
     }
 
@@ -244,5 +235,4 @@ class Engine
     public static int KEY_RIGHT = Sdl.SDLK_RIGHT;
     public static int KEY_LEFT = Sdl.SDLK_LEFT;
     public static int KEY_ENTER = Sdl.SDLK_RETURN;
-    //public static int MOUSE_0 = Sdl.SDL_BUTTON_LEFT;
 }

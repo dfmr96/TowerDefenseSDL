@@ -14,12 +14,5 @@ namespace MyGame.Classes
             Vector2 tile = new Vector2((int)Math.Floor(pos.x / GameManager.TILE_SIZE), (int)Math.Floor(pos.y / GameManager.TILE_SIZE));
             return tile;
         }
-
-        public static Vector2 TileToPixel(Vector2 Tile)
-        {
-            Vector2 pixelPos = new Vector2((int)Tile.x * GameManager.TILE_SIZE,
-                (int)Math.Floor(Tile.y  * GameManager.TILE_SIZE));
-            return pixelPos;
-        }
     }
 }

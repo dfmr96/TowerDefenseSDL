@@ -13,9 +13,6 @@ namespace MyGame
             : base(initPos, spriteDir, new Vector2(6, 6))
         {
             this.direction = direction;
-            /*position = initPos;
-            sprite.root = Engine.LoadImage(spriteDir);*/
-            //sprite.size = new Vector2(6, 6);
         }
 
         public override void Update()
@@ -33,20 +30,9 @@ namespace MyGame
                 if (Vector2.Distance(transform.position, enemy.transform.position) <= colliderRadius + enemy.ColliderRadius)
                 {
                     enemy.TakeDamage();
-                    //Engine.Debug("Bala borrada");
                     GameManager.Instance.gameObjects.Remove(this);
                 }
             }
-        }
-
-        /*public void SetDirection(Vector2 dir)
-        {
-            direction = dir;
-        }*/
-
-        ~Bullet()
-        {
-            Engine.Debug("Bala destruida");
         }
 
         public override void Render()
